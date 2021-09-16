@@ -7,6 +7,10 @@ CREATE TABLE ligues(
 CREATE TABLE clubs(
    id_club INT,
    nom VARCHAR(50),
+   cp VARCHAR(50),
+   numero_rue VARCHAR(50),
+   nom_rue VARCHAR(50),
+   ville VARCHAR(50),
    id_ligue INT NOT NULL,
    PRIMARY KEY(id_club),
    FOREIGN KEY(id_ligue) REFERENCES ligues(id_ligue)
