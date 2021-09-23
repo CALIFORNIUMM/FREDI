@@ -105,6 +105,18 @@ class sql extends PDO {
         $response = $request->fetch();
         return $response;
     }
+
+    public function new_user(Array $user){
+        $sql="INSERT INTO utilisateur(pseudo, mdp, mail, nom, prenom, role) VALUES (:pseudo, :mdp, :mail, :nom, :prenom, 1)";
+        $request=$this->dbh->prepare($sql);
+        $request->execute(array(
+            ":pseudo" => $user[0],
+            ":mdp" => $user[1],
+            ":mail" => $user[2],
+            ":nom" => $user[3],
+            ":prenom" => $user[4],
+        ));
+    }
 }
 
 ?>
