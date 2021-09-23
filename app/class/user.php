@@ -69,6 +69,7 @@
             return $this->role = $role;
         }
 
+        //Function de fill sur les setter
         public function fill(array $tableau){
             foreach($tableau as $key => $valeur){
                 $methode = 'set_'.$key;
