@@ -69,9 +69,8 @@
                 $hash=password_hash($mdp, PASSWORD_BCRYPT); //hachage du mot de passe
                 $db->new_user(Array(
                     $_POST['pseudo'],
-                    $_POST['Email'],
                     $hash,
-                    $_POST['ligue'],
+                    $_POST['Email'],
                     $_POST['nom'],
                     $_POST['prenom']
                 ));
