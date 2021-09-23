@@ -117,6 +117,34 @@ class sql extends PDO {
             ":prenom" => $user[4],
         ));
     }
+
+    public function is_exist_pseudo($pseudo){
+        $sql="SELECT count(*) as nb FROM utilisateur WHERE pseudo = :pseudo";
+        $request=$this->dbh->prepare($sql);
+        $request->execute(array(
+            ":pseudo" => $pseudo
+        ));
+        $response = $request->fetch();
+        if($response['nb'] == 0){
+            return False;
+        }else{
+            return True;
+        };
+    }
+
+    public function is_exist_mail($mail){
+        $sql="SELECT count(*) as nb FROM utilisateur WHERE mail = :mail";
+        $request=$this->dbh->prepare($sql);
+        $request->execute(array(
+            ":mail" => $mail
+        ));
+        $response = $request->fetch();
+        if($response['nb'] == 0){
+            return False;
+        }else{
+            return True;
+        };
+    }
 }
 
 ?>
