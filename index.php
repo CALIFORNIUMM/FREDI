@@ -4,6 +4,8 @@
     }
     spl_autoload_register('my_autoloader');
     $db = new sql();
-    $reponse = $db->select_all('utilisateur');
+    $user1 = New User($db->get_user(1));
+    echo $user1->get_nom();
+
     
 ?>

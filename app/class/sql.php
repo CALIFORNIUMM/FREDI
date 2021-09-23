@@ -25,6 +25,86 @@ class sql extends PDO {
         $response=$request->fetchAll();
         return $response;
     }
+
+    function get_user(int $id){
+        $sql="SELECT * FROM utilisateur WHERE id_utilisateur = :id";
+        $request=$this->dbh->prepare($sql);
+        $request->execute(array(
+            ":id" => $id
+        ));
+        $response = $request->fetch();
+        return $response;
+    }
+
+    function get_adherent(int $id){
+        $sql="SELECT * FROM adherent WHERE id_adherent = :id";
+        $request=$this->dbh->prepare($sql);
+        $request->execute(array(
+            ":id" => $id
+        ));
+        $response = $request->fetch();
+        return $response;
+    }
+
+    function get_club(int $id){
+        $sql="SELECT * FROM club WHERE id_club = :id";
+        $request=$this->dbh->prepare($sql);
+        $request->execute(array(
+            ":id" => $id
+        ));
+        $response = $request->fetch();
+        return $response;
+    }
+
+    function get_ligue(int $id){
+        $sql="SELECT * FROM ligue WHERE id_ligue = :id";
+        $request=$this->dbh->prepare($sql);
+        $request->execute(array(
+            ":id" => $id
+        ));
+        $response = $request->fetch();
+        return $response;
+    }
+
+    function get_ligne(int $id){
+        $sql="SELECT * FROM ligne WHERE id_ligne = :id";
+        $request=$this->dbh->prepare($sql);
+        $request->execute(array(
+            ":id" => $id
+        ));
+        $response = $request->fetch();
+        return $response;
+    }
+
+    function get_motif(int $id){
+        $sql="SELECT * FROM motif WHERE id_motif = :id";
+        $request=$this->dbh->prepare($sql);
+        $request->execute(array(
+            ":id" => $id
+        ));
+        $response = $request->fetch();
+        return $response;
+    }
+
+    function get_periode(int $id){
+        $sql="SELECT * FROM periode WHERE id_periode = :id";
+        $request=$this->dbh->prepare($sql);
+        $request->execute(array(
+            ":id" => $id
+        ));
+        $response = $request->fetch();
+        return $response;
+    }
+
+    function get_note(int $id){
+        $sql="SELECT * FROM note WHERE id_note = :id";
+        $request=$this->dbh->prepare($sql);
+        $request->execute(array(
+            ":id" => $id
+        ));
+        $response = $request->fetch();
+        return $response;
+    }
 }
 
 ?>
