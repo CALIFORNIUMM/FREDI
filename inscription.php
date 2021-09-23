@@ -63,20 +63,23 @@
                 </p>
             </form>
             <?php
-            if (!empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['passe']) && !empty($_POST['passe2']) && !empty($_POST['ligue']) && !empty($_POST['nom']) && !empty($_POST['prenom']))  { //si tout les champs sonts remplis
-                if($_POST['passe'] == $_POST['passe2']){   //si les mots de passes sont identique        
-                    $mdp = $_POST['passe'];
-                    $hash=password_hash($mdp, PASSWORD_BCRYPT); //hachage du mot de passe
-                    $db->new_user(Array(
-                        $_POST['pseudo'],
-                        $hash,
-                        $_POST['email'],
-                        $_POST['nom'],
-                        $_POST['prenom']
-                    ));
+            if(is_exist_pseudo($_POST['pseudo']) == FALSE && is_exist_mail($_POST['email']) == FALSE){
+                if(!empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['passe']) && !empty($_POST['passe2']) && !empty($_POST['ligue']) && !empty($_POST['nom']) && !empty($_POST['prenom']))  { //si tout les champs sonts remplis
+                    if($_POST['passe'] == $_POST['passe2']){   //si les mots de passes sont identique        
+                        $mdp = $_POST['passe'];
+                        $hash=password_hash($mdp, PASSWORD_BCRYPT); //hachage du mot de passe
+                        $db->new_user(Array(
+                            $_POST['pseudo'],
+                            $hash,
+                            $_POST['email'],
+                            $_POST['nom'],
+                            $_POST['prenom']
+                        ));
+                    }
                 }
+            }else{
+                echo "exception : mail ou pseudo deja existant";
             }
-         
         ?>
         </div>
 
