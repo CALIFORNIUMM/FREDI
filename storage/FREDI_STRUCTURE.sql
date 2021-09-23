@@ -106,13 +106,6 @@ CREATE TABLE `ligues` (
 -- Déchargement des données de la table `ligues`
 --
 
-INSERT INTO `ligues` (`id_ligue`, `nom`) VALUES
-(0, 'Ligue de natation du Quercy'),
-(1, 'Ligue de Judo Auvergne-Rhone-Alpes'),
-(2, 'Ligue de football Haute-Garonne'),
-(3, 'Ligue de football d\'Aquitaine'),
-(4, 'Ligue de tennis de Corse du Sud'),
-(5, 'Ligue d\'equitation du VAR');
 
 -- --------------------------------------------------------
 
