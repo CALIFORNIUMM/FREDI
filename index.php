@@ -4,8 +4,6 @@
     }
     spl_autoload_register('my_autoloader');
     $db = new sql();
-    $reponse = $db->select_all('entreprises');
-    foreach($reponse as $test){
-        echo ($test['nomEntreprise']."<br>");
-    }
+    $reponse = $db->select_all('utilisateur');
+    
 ?>

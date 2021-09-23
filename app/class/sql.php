@@ -3,9 +3,9 @@ class sql extends PDO {
 
     public $dbh;
     private $host ="localhost";
-    private $user="histage";
+    private $user="fredi21";
     private $password="Limayrac#31";
-    private $db="histage";
+    private $db="fredi21";
 
     function __construct()
     {
@@ -23,16 +23,6 @@ class sql extends PDO {
         $request=$this->dbh->prepare($sql);
         $request->execute();
         $response=$request->fetchAll();
-        return $response;
-    }
-
-    function user($id_user){
-        $sql="SELECT * FROM users WHERE id = :id_utilisateur";
-        $request = $this->dbh->prepare($sql);
-        $request->execute(array(
-            ':id_utilisateur'=>$id_user
-        ));
-        $response=$request->fetch();
         return $response;
     }
 }
