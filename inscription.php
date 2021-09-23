@@ -65,24 +65,16 @@
             <?php
             if (!empty($_POST['pseudo']) && !empty($_POST['Email']) && !empty($_POST['passe']) && !empty($_POST['passe2']) && !empty($_POST['ligue']) && !empty($_POST['nom']) && !empty($_POST['prenom']))  { //si tout les champs sonts remplis
             if($_POST['passe'] == $_POST['passe2']){   //si les mots de passes sont identique        
-              
-                $id_usertype=1; // on créer un utilisateur
                 $mdp = $_POST['passe'];
                 $hash=password_hash($mdp, PASSWORD_BCRYPT); //hachage du mot de passe
-                try {        //insertion de l'utilsateur   
-                    $req = $dbh->prepare('INSERT INTO utilisateur(pseudo, mdp, mail, id_usertype, id_ligue) VALUES(:pseudo, :mdp, :mail, :id_usertype, :id_ligue)');
-                    $req->execute(array(
-                        'pseudo' => $_POST['nom'],
-                        'mdp' => $hash,
-                        'mail'=>   $_POST['Email'],
-                        'id_usertype'=> $id_usertype,
-                        'id_ligue'=>   $_POST['ligue']
-                        ));
-                    
-                    echo 'enregistrement effectué !';
-                } catch (PDOException $ex) {
-                    die("Erreur lors de la requête SQL : ".$ex->getMessage());
-                }
+                $db->new_user(Array(
+                    $_POST['pseudo'],
+                    $_POST['Email'],
+                    $hash,
+                    $_POST['ligue'],
+                    $_POST['nom'],
+                    $_POST['prenom']
+                ));
             }   
          }
         ?>
