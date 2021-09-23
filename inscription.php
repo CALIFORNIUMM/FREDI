@@ -46,9 +46,9 @@
                 <label for="pseudo">Pseudo<br><input type="text" name="pseudo"><br><br></label>
                 <label for="passe">Mot de Passe<br><input type="password" name="passe"><br><br></label>
                 <label for="passe2">Confirmation du mot de passe: <br><input type="password" name="passe2"/></label><br><br>
-                <label for="Email">Email<br><input type="text" name="Email"><br><br></label>
-                <label for="Nom">Nom<br><input type="text" name="Nom"><br><br></label>
-                <label for="Prenom">Prénom<br><input type="text" name="Prenom"><br><br></label>
+                <label for="email">Email<br><input type="text" name="email"><br><br></label>
+                <label for="nom">Nom<br><input type="text" name="nom"><br><br></label>
+                <label for="prenom">Prénom<br><input type="text" name="prenom"><br><br></label>
                 <label for="Ligue">Ligue</label><br>
                 <select name="ligue" id="ligue-select">
                     <option value=""selected>--Please choose an option--</option>
@@ -63,19 +63,20 @@
                 </p>
             </form>
             <?php
-            if (!empty($_POST['pseudo']) && !empty($_POST['Email']) && !empty($_POST['passe']) && !empty($_POST['passe2']) && !empty($_POST['ligue']) && !empty($_POST['nom']) && !empty($_POST['prenom']))  { //si tout les champs sonts remplis
-            if($_POST['passe'] == $_POST['passe2']){   //si les mots de passes sont identique        
-                $mdp = $_POST['passe'];
-                $hash=password_hash($mdp, PASSWORD_BCRYPT); //hachage du mot de passe
-                $db->new_user(Array(
-                    $_POST['pseudo'],
-                    $hash,
-                    $_POST['Email'],
-                    $_POST['nom'],
-                    $_POST['prenom']
-                ));
-            }   
-         }
+            if (!empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['passe']) && !empty($_POST['passe2']) && !empty($_POST['ligue']) && !empty($_POST['nom']) && !empty($_POST['prenom']))  { //si tout les champs sonts remplis
+                if($_POST['passe'] == $_POST['passe2']){   //si les mots de passes sont identique        
+                    $mdp = $_POST['passe'];
+                    $hash=password_hash($mdp, PASSWORD_BCRYPT); //hachage du mot de passe
+                    $db->new_user(Array(
+                        $_POST['pseudo'],
+                        $hash,
+                        $_POST['email'],
+                        $_POST['nom'],
+                        $_POST['prenom']
+                    ));
+                }
+            }
+         
         ?>
         </div>
 
