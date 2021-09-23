@@ -116,5 +116,6 @@ h1, h2, h3, h4, h5, h6 {
 #footer a {
     color:#af9268;
     text-decoration:none;
+    padding: auto;
 }
 

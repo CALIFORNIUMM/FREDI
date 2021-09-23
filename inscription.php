@@ -1,5 +1,6 @@
 <?php
    include "autoload.php";
+   $db=new sql();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -42,16 +43,18 @@
             <h1>M2L</h1>
             <h2>Inscription</h2>
             <form method="post">
-                <label for="nom">Pseudo<br><input type="text" name="nom"><br><br></label>
-                <label for="Email">Email<br><input type="text" name="Email"><br><br></label>
+                <label for="pseudo">Pseudo<br><input type="text" name="pseudo"><br><br></label>
                 <label for="passe">Mot de Passe<br><input type="password" name="passe"><br><br></label>
                 <label for="passe2">Confirmation du mot de passe: <br><input type="password" name="passe2"/></label><br><br>
+                <label for="Email">Email<br><input type="text" name="Email"><br><br></label>
+                <label for="Nom">Nom<br><input type="text" name="Nom"><br><br></label>
+                <label for="Prenom">Prénom<br><input type="text" name="Prenom"><br><br></label>
                 <label for="Ligue">Ligue</label><br>
                 <select name="ligue" id="ligue-select">
                     <option value=""selected>--Please choose an option--</option>
                     <?php
-                        foreach(){
-                            echo "<option value= "..">".."</option>";
+                        foreach($db->select_all("ligue") as $ligue){
+                            echo "<option value= ".$ligue['id_ligue'].">".$ligue['lib_ligue']."</option>";
                         }
                     ?>
                 </select><br><br>
