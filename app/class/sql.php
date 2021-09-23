@@ -145,6 +145,16 @@ class sql extends PDO {
             return True;
         };
     }
+
+    function connexion_user($pseudo){
+        $sql="SELECT id_utilisateur, mdp FROM utilisateur WHERE pseudo = :pseudo";
+        $request=$this->dbh->prepare($sql);
+        $request->execute(array(
+            ":pseudo" => $pseudo
+        ));
+        $response = $request->fetch();
+        return $response;
+    }
 }
 
 ?>

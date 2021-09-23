@@ -99,8 +99,9 @@ h1, h2, h3, h4, h5, h6 {
 /* Content */
 #content { 
     margin:auto; 
-    padding:400px; 
+    padding:40px; 
     background:rgb(207, 207, 207);
+    color:#323232;
 }
 
 /* Footer */
