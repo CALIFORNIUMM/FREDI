@@ -8,8 +8,10 @@
         private $prenom;
         private $role;
 
-        function __construct(Array $user){
-            $this->fill($user);        
+        function __construct(Array $user=NULL){
+            if($user != NULL){
+                $this->fill($user); 
+            }
         }
         // Functions GET
         public function get_id_utilisateur(){
@@ -67,6 +69,15 @@
 
         public function set_role($role){
             return $this->role = $role;
+        }
+
+        public function save(){
+            if($this->id_utilisateur==NULL){
+
+                $db = new sql();
+            }else{
+                $db = new sql();
+            }
         }
 
         //Function de fill sur les setter
