@@ -26,20 +26,14 @@ define('ROOT', dirname(__FILE__));  // Racine du site en absolu (à utiliser dan
  * @param string $classe
  */
 function my_autoloader($classe) {
-  include 'app/class/' . $classe . '.php';
+  if(file_exists('app/class/' . $classe . '.php')){
+    include 'app/class/' . $classe . '.php';
+  }else{
+    include 'app/dao/' . $classe . '.php';
+  }
+    
 }
-
 spl_autoload_register('my_autoloader');
-
-/**
- * Autoload
- * @param string $classe
- */
-function my_dao($classe) {
-  include 'app/dao/' . $classe . '.php';
-}
-
-spl_autoload_register('my_dao');
 
 /**
  * Vide le cache du navigateur

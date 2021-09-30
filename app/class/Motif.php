@@ -11,7 +11,7 @@
             return $this->id_motif;
         }
         
-        public function get_lib_ligue(){
+        public function get_lib_motif(){
             return $this->lib_motif;
         }
 

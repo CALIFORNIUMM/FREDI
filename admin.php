@@ -23,15 +23,9 @@
             </div>
 
             <div id="top-nav">
-                <ul>
-                    <li><a href="#">Charger motifs</a></li>
-                    <li><a href="#">Liste motifs</a></li>
-                    <li><a href="#">Charger clubs</a></li>
-                    <li><a href="#">Liste clubs</a></li>
-                    <li><a href="#">Charger ligues</a></li>
-                    <li><a href="#">Liste ligues</a></li>
-                    <li><a href="#">SE DÉCONNECTER</a></li>
-                </ul>
+            <?php
+            include "menu.php";
+            ?>
             </div>
             <div class="bas-nav"></div>
         </div>
