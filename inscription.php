@@ -1,6 +1,38 @@
 <?php
-   include "init.php";
-   $db=new sql();
+    include "init.php";
+    //Liste des ligues existantes
+    $ligues = New LigueDAO();
+    $ligues = $ligues->findAll();
+
+    //DAO des users
+    $users = New UserDAO();
+
+    if(isset($_POST['submit'])){
+        $pseudo=isset($_POST['pseudo']) ? $_POST['pseudo'] : NULL;
+        $pseudo=isset($_POST['pseudo']) ? $_POST['pseudo'] : NULL;
+        $pseudo=isset($_POST['pseudo']) ? $_POST['pseudo'] : NULL;
+    }
+    if(!empty($_POST['pseudo']) && !empty($_POST['mail']) && !empty($_POST['mdp']) && !empty($_POST['mdp2']) && !empty($_POST['ligue']) && !empty($_POST['nom']) && !empty($_POST['prenom']))  { //si tout les champs sonts remplis
+        if($users->isExistPseudo($_POST['pseudo']) == FALSE ){
+            if($users->isExistMail($_POST['email']) == FALSE){
+                if($_POST['passe'] == $_POST['passe2']){   //si les mots de passes sont identique        
+                    $mdp = $_POST['passe'];
+                    $hash=password_hash($mdp, PASSWORD_BCRYPT); //hachage du mot de passe
+                    $db->new_user(Array(
+                        $_POST['pseudo'],
+                        $hash,
+                        $_POST['email'],
+                        $_POST['nom'],
+                        $_POST['prenom']
+                    ));
+                }
+            }
+        }else{
+            echo "exception : mail deja existant";
+        }
+    }else{
+        echo "exception : pseudo deja existant";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -42,49 +74,37 @@
         <div id="content">
             <h1>M2L</h1>
             <h2>Inscription</h2>
-            <form method="post">
-                <label for="pseudo">Pseudo<br><input type="text" name="pseudo"><br><br></label>
-                <label for="passe">Mot de Passe<br><input type="password" name="passe"><br><br></label>
-                <label for="passe2">Confirmation du mot de passe: <br><input type="password" name="passe2"/></label><br><br>
-                <label for="email">Email<br><input type="text" name="email"><br><br></label>
-                <label for="nom">Nom<br><input type="text" name="nom"><br><br></label>
-                <label for="prenom">Prénom<br><input type="text" name="prenom"><br><br></label>
-                <label for="Ligue">Ligue</label><br>
-                <select name="ligue" id="ligue-select">
+            <form method="POST">
+                <label for="pseudo">Pseudo</label><br>
+                <input type="text" id="pseudo" name="pseudo"><br>
+
+                <label for="mdp">Mot de Passe</label><br>
+                <input type="password" id="mdp" name="mdp"><br>
+            
+                <label for="mdp2">Confirmation du mot de passe:</label><br>
+                <input type="password" id="mdp2" name="mdp2"/><br>
+
+                <label for="mail">Mail</label><br>
+                <input type="text" id="mail" name="mail"><br>
+
+                <label for="nom">Nom</label><br>
+                <input type="text" id="nom" name="nom"><br>
+
+                <label for="prenom">Prénom</label><br>
+                <input type="text" id="prenom" name="prenom"><br>
+                
+                <label for="ligue">Ligue</label><br>
+                <select name="ligue" id="ligue">
                     <option value=""selected>--Please choose an option--</option>
                     <?php
-                        foreach($db->select_all("ligue") as $ligue){
-                            echo "<option value= ".$ligue['id_ligue'].">".$ligue['lib_ligue']."</option>";
+                        foreach($ligues as $ligue){
+                            echo "<option value=".$ligue->get_id_ligue().">".$ligue->get_lib_ligue()."</option>";
                         }
                     ?>
                 </select><br><br>
-                <p>
-                    <input name="inscrire" type="submit" id="s'inscrire" value="s'inscrire">
-                </p>
+                
+                <input name="submit" type="submit" id="submit" value="S'inscrire">
             </form>
-            <?php
-            if($db->is_exist_pseudo($_POST['pseudo']) == FALSE ){
-                if($db->is_exist_mail($_POST['email']) == FALSE){
-                    if(!empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['passe']) && !empty($_POST['passe2']) && !empty($_POST['ligue']) && !empty($_POST['nom']) && !empty($_POST['prenom']))  { //si tout les champs sonts remplis
-                        if($_POST['passe'] == $_POST['passe2']){   //si les mots de passes sont identique        
-                            $mdp = $_POST['passe'];
-                            $hash=password_hash($mdp, PASSWORD_BCRYPT); //hachage du mot de passe
-                            $db->new_user(Array(
-                                $_POST['pseudo'],
-                                $hash,
-                                $_POST['email'],
-                                $_POST['nom'],
-                                $_POST['prenom']
-                            ));
-                        }
-                    }
-                }else{
-                    echo "exception : mail deja existant";
-                }
-            }else{
-                echo "exception : pseudo deja existant";
-            }
-        ?>
         </div>
 
         <footer id="footer">
