@@ -1,5 +1,5 @@
 <?php
-    class Club {
+    class Note {
         private $id_note;
         private $est_valide;
         private $mt_total;

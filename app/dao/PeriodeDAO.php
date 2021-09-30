@@ -1,30 +1,30 @@
 <?php
-    class AdherentDAO extends dao 
+    class  PeriodeDAO extends dao 
     {
         function __construct()
         {
             parent::__construct();
         }
-        function find($id_adherent) {
-            $sql = "SELECT * FROM adherent WHERE id_adherent= :id_adherent";
+        function find($id_periode) {
+            $sql = "SELECT * FROM periode WHERE id_periode= :id_periode";
             try {
                 $sth = $this->pdo->prepare($sql);
-                $sth->execute(array(":id_adherent" => $id_adherent));
+                $sth->execute(array(":id_periode" => $id_periode));
                 $row = $sth->fetch(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
                 throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
             }
-            $adherent=null;
+            $periode=null;
             if($row) {
                 
-                $adherent = new Adherent($row);
+                $periode = new Periode($row);
             }
             // Retourne l'objet
-            return $adherent;
+            return $periode;
         } // function find()
 
         function findAll() {
-            $sql = "SELECT * FROM adherent";
+            $sql = "SELECT * FROM periode";
             try {
                 $sth = $this->pdo->prepare($sql);
                 $sth->execute();
@@ -32,12 +32,12 @@
             } catch (PDOException $e) {
                 throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
             }
-            $adherent = array();
+            $periode = array();
             foreach ($rows as $row) {
-                $adherent[] = new Adherent($row);
+                $periode[] = new Periode($row);
             }
             // Retourne un tableau d'objets
-            return $adherent;
+            return $periode;
         } // function findAll()
     }
 ?>
