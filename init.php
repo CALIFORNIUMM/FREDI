@@ -22,6 +22,16 @@ function my_autoloader($classe) {
 spl_autoload_register('my_autoloader');
 
 /**
+ * Autoload
+ * @param string $classe
+ */
+function my_dao($classe) {
+  include 'app/dao/' . $classe . '.php';
+}
+
+spl_autoload_register('my_dao');
+
+/**
  * Vide le cache du navigateur
  */
 header("Cache-Control: no-cache, must-revalidate");
