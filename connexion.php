@@ -1,5 +1,22 @@
 <?php
-   include "init.php";
+    include "init.php";
+
+    if(isset($_POST['submit'])){
+        $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : NULL;
+        $mdp = isset($_POST['mdp']) ? $_POST['mdp'] : NULL;
+        if($pseudo != NULL && $mdp  != NULL){
+            $user = new UserDAO();
+            if($user->isExistPseudo($pseudo) == TRUE){
+                $user = $user->connexionUser($pseudo);
+                if(password_verify($user['mdp'], $mdp)){
+                    echo 'ok';
+                }else{
+                    echo 'non';
+                }
+            }
+        }
+        die();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -41,57 +58,16 @@
         <div id="content">
             <h1>M2L</h1>
             <h2>Connexion</h2>
-            <form method="post">
-                <label for="pseudo">Pseudo<br><input type="text" name="pseudo"><br><br></label>
-                <label for="mdp">Mot de Passe<br><input type="password" name="mdp"><br><br></label>
-                <p>
-                    <input name="connexion" type="submit" id="connexion" value="Se connecter">
-                </p>
+            <form method="POST">
+
+                <label for="pseudo">Pseudo</label><br>
+                <input type="text" name="pseudo" id="pseudo"><br>
+
+                <label for="mdp">Mot de Passe</label><br>
+                <input type="password" name="mdp" id="mdp"><br><br>
+
+                <input name="submit" type="submit" id="submit" value="Se connecter">
             </form>
-            <?php
-                if (!empty($_POST['pseudo']) && !empty($_POST['mdp']))  { //si tout les champs sonts remplis
-                    if($db->is_exist_pseudo($_POST['pseudo'] == TRUE)) {
-                    $user = $db->connexion_user($_POST['pseudo']);
-                        if(password_verify($_POST['mdp'],$user['mdp'])){
-                            $user = new User($db->get_user($user['id_utilisateur']));
-                            $_SESSION['user']=$user;
-                        }
-                    } else {
-                        echo "erreur";
-                    }
-                }
-
-
-
-
-                // $pseudo=isset($_POST['pseudo']) ? $_POST['pseudo'] :  "";
-                // $password=isset($_POST['password']) ? $_POST['password'] :  "";
-                // $sql="SELECT * FROM utilisateur WHERE pseudo=:pseudo";
-                // try {
-                //     $sth = $db->prepare($sql);
-                //     $sth->execute(array(
-                //         ':pseudo' => $pseudo
-                //     ));
-                //     $user = $sth->fetch(PDO::FETCH_ASSOC);
-                // } 
-                // catch (PDOException $ex) {
-                //     die("Erreur lors de la requête SQL : " . $ex->getMessage());
-                // }
-                    
-                // if($pseudo === $user['pseudo'] && password_verify($password,$user['mdp'])){
-                //     unset($user["mdp"]);
-                //     $_SESSION['user']=$user;
-                //     $_SESSION['messages']=array(
-                //         "connexion" => ["green", "Vous vous êtes bien connecté"]
-                //     );
-
-                // header("Location: index.php");
-
-                // } else {
-                //     $_SESSION['messages']=array("Account" => ["red", "Ces identifiants sont incorrects"]);
-                //     header("Location: connexion.php");
-                // }
-        ?>
         </div>
 
         <footer id="footer">
