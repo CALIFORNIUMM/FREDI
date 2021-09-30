@@ -71,15 +71,6 @@
             return $this->role = $role;
         }
 
-        public function save(){
-            if($this->id_utilisateur==NULL){
-
-                $db = new sql();
-            }else{
-                $db = new sql();
-            }
-        }
-
         //Function de fill sur les setter
         public function fill(array $tableau){
             foreach($tableau as $key => $valeur){

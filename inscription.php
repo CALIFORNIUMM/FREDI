@@ -1,5 +1,5 @@
 <?php
-   include "autoload.php";
+   include "init.php";
    $db=new sql();
 ?>
 <!DOCTYPE html>

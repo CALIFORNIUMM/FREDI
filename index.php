@@ -1,5 +1,5 @@
 <?php
-   include "autoload.php";
+   include "init.php";
    $db=new sql();
    if($db->is_exist_pseudo('test') == True){
       echo 'oui';
