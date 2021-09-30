@@ -8,30 +8,47 @@
     $users = New UserDAO();
 
     if(isset($_POST['submit'])){
+        
         $pseudo=isset($_POST['pseudo']) ? $_POST['pseudo'] : NULL;
-        $pseudo=isset($_POST['pseudo']) ? $_POST['pseudo'] : NULL;
-        $pseudo=isset($_POST['pseudo']) ? $_POST['pseudo'] : NULL;
-    }
-    if(!empty($_POST['pseudo']) && !empty($_POST['mail']) && !empty($_POST['mdp']) && !empty($_POST['mdp2']) && !empty($_POST['ligue']) && !empty($_POST['nom']) && !empty($_POST['prenom']))  { //si tout les champs sonts remplis
-        if($users->isExistPseudo($_POST['pseudo']) == FALSE ){
-            if($users->isExistMail($_POST['email']) == FALSE){
-                if($_POST['passe'] == $_POST['passe2']){   //si les mots de passes sont identique        
-                    $mdp = $_POST['passe'];
-                    $hash=password_hash($mdp, PASSWORD_BCRYPT); //hachage du mot de passe
-                    $db->new_user(Array(
-                        $_POST['pseudo'],
-                        $hash,
-                        $_POST['email'],
-                        $_POST['nom'],
-                        $_POST['prenom']
-                    ));
+        $mail=isset($_POST['mail']) ? $_POST['mail'] : NULL;
+        $mdp=isset($_POST['mdp']) ? $_POST['mdp'] : NULL;
+        $mdp2=isset($_POST['mdp2']) ? $_POST['mdp2'] : NULL;
+        $ligue=isset($_POST['ligue']) ? $_POST['ligue'] : NULL;
+        $nom=isset($_POST['nom']) ? $_POST['nom'] : NULL;
+        $prenom=isset($_POST['prenom']) ? $_POST['prenom'] : NULL;
+
+        if($pseudo != NULL && $mail != NULL && $mdp != NULL && $mdp2 != NULL && $ligue != NULL && $nom != NULL && $prenom != NULL) { //si tout les champs sonts remplis
+            if($users->isExistPseudo($pseudo) == FALSE ){
+                if($users->isExistMail($mail) == FALSE){
+                    if(strlen($mdp)>7 && preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$#%^&]).*$/', $mdp) == TRUE){
+                        if($mdp == $mdp2){   //si les mots de passes sont identique
+                            $hash=password_hash($mdp, PASSWORD_BCRYPT); //hachage du mot de passe
+                            $values = array(
+                                'pseudo' => $pseudo,
+                                'mdp' => $hash,
+                                'mail' => $mail,
+                                'nom' => $nom,
+                                'prenom' => $prenom,
+                                'role' => 0
+                            );
+                            $user = new User($values);
+                            $nUser = new UserDAO();
+                            $nUser = $nUser->newUser($user);
+                            echo 'Vous vous êtes bien inscrit';
+                            header("Location: connexion.php");
+                        }
+                    }else{
+                        echo "Le mot de passe n'est pas assez sécurisé";
+                    }
+                }else{
+                    echo "exception : mail deja existant";
                 }
+            }else{
+                echo "exception : pseudo deja existant";
             }
         }else{
-            echo "exception : mail deja existant";
+            echo "exception : champs vides";
         }
-    }else{
-        echo "exception : pseudo deja existant";
     }
 ?>
 <!DOCTYPE html>
@@ -98,9 +115,10 @@
                     <option value=""selected>--Please choose an option--</option>
                     <?php
                         foreach($ligues as $ligue){
-                            echo "<option value=".$ligue->get_id_ligue().">".$ligue->get_lib_ligue()."</option>";
+                            echo "<option value=\"".$ligue->get_id_ligue()."\">".$ligue->get_lib_ligue()."</option>";
                         }
                     ?>
+                    
                 </select><br><br>
                 
                 <input name="submit" type="submit" id="submit" value="S'inscrire">

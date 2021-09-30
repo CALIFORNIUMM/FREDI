@@ -17,7 +17,7 @@
 
         //Function SET
         public function set_id_ligue($id_ligue){
-            $this->id_club = $id_ligue;
+            $this->id_ligue = $id_ligue;
         }
 
         public function set_lib_ligue($lib_ligue){
