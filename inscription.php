@@ -14,6 +14,7 @@
     $prenom=isset($_POST['prenom']) ? $_POST['prenom'] : NULL;
     //DAO des users
     $users = New UserDAO();
+    //messages
     $messages = New Messages("error");
 
     if(isset($_POST['submit'])){

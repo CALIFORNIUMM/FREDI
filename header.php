@@ -27,8 +27,17 @@
 
             <div id="top-nav">
                 <ul>
-                    <li><a href="connexion.php">SE CONNECTER</a></li>
-                    <li><a href="inscription.php">S'INSCRIRE</a></li>
+                <?php 
+                    if(isset($_SESSION['user'])){
+                        echo '<li><a href="profil.php">MON COMPTE</a></li>';
+                        echo '<li><a href="deconnexion.php">DECONNEXION</a></li>';
+                    }else{
+                        echo '<li><a href="inscription.php">S\'INSCRIRE</a></li>';
+                        echo '<li><a href="connexion.php">SE CONNECTER</a></li>';
+                    }
+                ?>
+                    
+                    
                 </ul>
             </div>
             <div class="bas-nav"></div>
