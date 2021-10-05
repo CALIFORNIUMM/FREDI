@@ -5,6 +5,7 @@
 * @author 
 */
 
+session_start();
 /**
  * Paramétrage pour certains serveurs qui n'affichent pas les erreurs PHP par défaut
  */
@@ -44,8 +45,8 @@ header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 /**
  * Paramètre de la base de données
  */
- define('DB_USER','fredi21');
- define('DB_PASSWORD','Limayrac#31');
+ define('DB_USER','root');
+ define('DB_PASSWORD','');
  define('DB_HOST','localhost');
  define('DB_NAME','fredi21');
  
