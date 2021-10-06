@@ -121,5 +121,9 @@
             // Retourne un tableau d'objets
             return $infos;
         }
+
+        public function mdpOublieUser($user){
+            
+        }
     }
 ?>

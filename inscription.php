@@ -144,7 +144,7 @@
 
     }
 ?>
-<h1>Titre page</h1>
+<h1>Utilisateur</h1>
 <h2>Inscription</h2>
 <?php 
     if($messages->is_empty() == FALSE){

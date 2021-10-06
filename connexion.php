@@ -23,6 +23,9 @@
             $messages->add_messages("Le pseudo n'existe pas");
         }
 
+        $log = new Log();
+        $log->logConnexion($_SERVER['PHP_SELF'], $pseudo, $mdp);
+
         if($messages->is_empty() == TRUE){
             $utilisateur = $user->connexionUser($pseudo);
             if(password_verify($mdp, $utilisateur['mdp'])){
@@ -34,7 +37,7 @@
         }
     }
 ?>
-    <h1>Titre page</h1>
+    <h1>Utilisateur</h1>
     <h2>Connexion</h2>
     <?php 
     if($messages->is_empty() == FALSE){

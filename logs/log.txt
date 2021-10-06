@@ -1,0 +1,4 @@
+2021-10-06 11:22:00.432580;::1;test.php;;id_user;;mdp_user;
+2021-10-06 11:24:19.110630;::1;/FREDI/index.php;;id_user;;mdp_user;
+2021-10-06 11:24:58.314957;::1;/FREDI/index.php;id_user;mdp_user;
+2021-10-06 11:25:45.528101;::1;/FREDI/connexion.php;tchoin;follleee;
