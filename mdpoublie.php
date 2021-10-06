@@ -1,4 +1,5 @@
-<?php include('header.php'); 
+<?php
+  include('header.php'); 
   $title = "Mot de passe oublié";
 
   $mail = isset($_POST['mail']) ? $_POST['mail'] : NULL;

@@ -1,9 +1,13 @@
-<?php include('header.php'); 
+<?php
+    include('header.php'); 
     $title = "Inscription";
 
     //Liste des ligues existantes
     $ligues = New LigueDAO();
     $ligues = $ligues->findAll();
+    //Liste des clubs existantes
+    $clubs = New ClubDAO();
+    $clubs = $clubs->findAll();
     //liste des données déjà existantes
     $pseudo=isset($_POST['pseudo']) ? $_POST['pseudo'] : NULL;
     $mail=isset($_POST['mail']) ? $_POST['mail'] : NULL;
@@ -12,6 +16,11 @@
     $ligue=isset($_POST['ligue']) ? $_POST['ligue'] : NULL;
     $nom=isset($_POST['nom']) ? $_POST['nom'] : NULL;
     $prenom=isset($_POST['prenom']) ? $_POST['prenom'] : NULL;
+    $adresse=isset($_POST['adresse']) ? $_POST['adresse'] : NULL;
+    $cp=isset($_POST['cp']) ? $_POST['cp'] : NULL;
+    $ville=isset($_POST['ville']) ? $_POST['ville'] : NULL;
+    $club=isset($_POST['club']) ? $_POST['club'] : NULL;
+    $licence=isset($_POST['licence']) ? $_POST['licence'] : NULL;
     //DAO des users
     $users = New UserDAO();
     //messages
@@ -44,6 +53,26 @@
 
         if(empty(trim($prenom))){
             $messages->add_messages("Prénom vide");
+        }
+
+        if(empty(trim($adresse))){
+            $messages->add_messages("Adresse vide");
+        }
+
+        if(empty(trim($cp))){
+            $messages->add_messages("Code postal vide");
+        }
+
+        if(empty(trim($ville))){
+            $messages->add_messages("Ville vide");
+        }
+
+        if(empty(trim($licence))){
+            $messages->add_messages("Licence vide");
+        }
+
+        if(empty(trim($club))){
+            $messages->add_messages("Club vide");
         }
 
         if($users->isExistPseudo($pseudo) == TRUE ){
@@ -95,13 +124,27 @@
             $user = new User($values);
             $nUser = new UserDAO();
             $nUser = $nUser->newUser($user);
+            $lastUser = new UserDAO();
+            $lastUser = $lastUser->connexionUser($pseudo);
+            $values = array(
+                "nr_licence" => $licence,
+                "adr1" => $adresse,
+                "adr2" => $cp,
+                "adr3" => $ville,
+                "id_utilisateur" => $lastUser['id_utilisateur'],
+                "id_club" => $club
+            );
+            $adherent = new Adherent($values);
+            $nAdherent = new AdherentDAO();
+            $nAdherent = $nAdherent->newAdherent($adherent);
+
             echo 'Vous vous êtes bien inscrit';
             header("Location: connexion.php");
         }
 
     }
 ?>
-<h1>M2L</h1>
+<h1>Titre page</h1>
 <h2>Inscription</h2>
 <?php 
     if($messages->is_empty() == FALSE){
@@ -110,22 +153,24 @@
 ?>
 <form method="POST">
     <label for="pseudo">Pseudo</label><br>
-    <input type="text" id="pseudo" name="pseudo" value="<?= $pseudo ?>"><br>
+    <input type="text" id="pseudo" name="pseudo" value="<?= $pseudo ?>"><br><br>
 
     <label for="mdp">Mot de Passe</label><br>
-    <input type="password" id="mdp" name="mdp"><br>
+    <input type="password" id="mdp" name="mdp"><br><br>
 
     <label for="mdp2">Confirmation du mot de passe:</label><br>
-    <input type="password" id="mdp2" name="mdp2"><br>
+    <input type="password" id="mdp2" name="mdp2"><br><br>
 
     <label for="mail">Mail</label><br>
-    <input type="text" id="mail" name="mail" value="<?= $mail ?>"><br>
+    <input type="text" id="mail" name="mail" value="<?= $mail ?>"><br><br>
 
     <label for="nom">Nom</label><br>
-    <input type="text" id="nom" name="nom" value="<?= $nom ?>"><br>
+    <input type="text" id="nom" name="nom" value="<?= $nom ?>"><br><br>
 
     <label for="prenom">Prénom</label><br>
-    <input type="text" id="prenom" name="prenom" value="<?= $prenom ?>"><br>
+    <input type="text" id="prenom" name="prenom" value="<?= $prenom ?>"><br><br>
+
+
     
     <label for="ligue">Ligue</label><br>
     <select name="ligue" id="ligue">
@@ -135,8 +180,29 @@
                 echo "<option value=\"".$ligue->get_id_ligue()."\">".$ligue->get_lib_ligue()."</option>";
             }
         ?>
-        
     </select><br><br>
+
+    <label for="adresse">Adresse</label><br>
+    <input type="text" name="adresse" id="adresse" value="<?= $adresse ?>"><br><br>  
+
+    <label for="cp">Code postal</label><br>
+    <input type="text" name="cp" id="cp" value="<?= $cp ?>"><br><br>
+
+    <label for="ville">Ville</label><br>
+    <input type="text" name="ville" id="ville" value="<?= $ville ?>"><br><br>
+
+    <label for="club">Club</label><br>
+    <select name="club" id="club">
+        <option value=""selected>--Please choose an option--</option>
+        <?php
+            foreach($clubs as $club){
+                echo "<option value=\"".$club->get_id_club()."\">".$club->get_lib_club()."</option>";
+            }
+        ?>
+    </select><br><br>
+    
+    <label for="licence">N°Licence</label><br>
+    <input type="text" name="licence" id="licence" value="<?= $licence ?>"><br><br>
     
     <input name="submit" type="submit" id="submit" value="S'inscrire">
 </form>

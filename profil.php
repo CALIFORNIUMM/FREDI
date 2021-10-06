@@ -1,11 +1,13 @@
-<?php include('header.php'); 
+<?php
+  include('app/class/User.php');
+  include('header.php'); 
+  
   $title = "Profil";
   $session = $_SESSION['user'];
-  var_dump($session);
 ?>
-  <h1>M2L</h1>
+  <h1>Titre page</h1>
   <h2>Page de mon profil</h2>
-  <p>Mon rôle : <?= $session['role'] ?></p>
+  <p>Mon rôle : <?= $session->get_role() ?></p>
 
   
 

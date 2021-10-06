@@ -34,7 +34,7 @@
         }
     }
 ?>
-    <h1>M2L</h1>
+    <h1>Titre page</h1>
     <h2>Connexion</h2>
     <?php 
     if($messages->is_empty() == FALSE){

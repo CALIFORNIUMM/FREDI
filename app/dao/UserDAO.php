@@ -121,6 +121,5 @@
             // Retourne un tableau d'objets
             return $infos;
         }
-
     }
 ?>

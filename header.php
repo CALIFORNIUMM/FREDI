@@ -1,6 +1,7 @@
-<?php include('init.php'); 
-    $title = 'Accueil';
+<?php
+    include('init.php');
     $messages = array();  // Message d'erreur
+    $title = NULL;
 ?>
 <!DOCTYPE html>
 <html lang="fr">

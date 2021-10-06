@@ -11,7 +11,7 @@
             $this->fill($club);        
         }
         // Functions GET
-        public function get_id_adherent(){
+        public function get_id_club(){
             return $this->id_club;
         }
         
