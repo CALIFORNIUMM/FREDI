@@ -2,8 +2,6 @@
 2021-10-06 11:24:19.110630;::1;/FREDI/index.php;;id_user;;mdp_user;
 2021-10-06 11:24:58.314957;::1;/FREDI/index.php;id_user;mdp_user;
 2021-10-06 11:25:45.528101;::1;/FREDI/connexion.php;tchoin;follleee;
-2021-10-06 17:02:00.026358;::1;/FREDI/connexion.php;kingtero;LOLolmdr#31;
-2021-10-06 17:30:13.539765;::1;/FREDI/connexion.php;kingtero;LOLolmdr#31;
 2021-10-06 17:30:16.702262;::1;/FREDI/connexion.php;kingtero;24de61ea1cf192f9;
 2021-10-06 17:30:58.421764;::1;/FREDI/connexion.php;kingtero;4487c523958125e5;
 2021-10-06 17:34:39.208212;::1;/FREDI/connexion.php;kingtero;f1bbbbc26f9d152e;
