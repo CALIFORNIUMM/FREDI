@@ -123,7 +123,23 @@
         }
 
         public function mdpOublieUser($user){
+            $user = $this->connexionUser($user);//on recup l'id
+            $user = $this->find($user['id_utilisateur']);//on recup l'user grace a l'id
+
+            $bytes = openssl_random_pseudo_bytes(8); // Mot de passe randomisé
+            $password = bin2hex($bytes); // Transformation du mot de passe binaire en hexadécimal
             
+            try{
+                $pass=password_hash($password, PASSWORD_BCRYPT); // Hash le mot de passe
+                $sql ="UPDATE utilisateur SET mdp=:pass WHERE id_utilisateur=:id";
+                $sth= $this->pdo->prepare($sql);
+                $sth->execute(array("pass"=>$pass, "id"=>$user->get_id_utilisateur()));
+            }catch (PDOException $e) {
+                throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
+            }
+
+            $message = new Log();
+            $message->sendMail("Rénitialisation de votre mot de passe !", "Vous avez demandez à que votre mot de passe soit rénitialisé car vous l'avez certainement oublié. Voici votre nouveau mot de passe : ", $user->get_pseudo(), $user->get_mail(), $password);
         }
     }
 ?>

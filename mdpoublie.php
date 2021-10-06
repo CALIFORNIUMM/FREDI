@@ -10,6 +10,10 @@
   $messages = New Messages("error");
   
   if(isset($submit)){
+
+    //DAO user
+    $user = new UserDAO();
+    
     if(empty(trim($pseudo))){
       $messages->add_messages("Pseudo vide");
     }
@@ -22,16 +26,18 @@
       $messages->add_messages("Le champ email doit contenir une adresse mail");
     }
 
-    if($users->isExistPseudo($pseudo) == FALSE ){
+    if($user->isExistPseudo($pseudo) == FALSE ){
       $messages->add_messages("Le pseudo n'éxiste pas");
     }
 
-    if($users->isExistMail($mail) == FALSE){
+    if($user->isExistMail($mail) == FALSE){
       $messages->add_messages("L'email n'éxiste pas");
     }
 
     if($messages->is_empty() == TRUE){
-      
+      $newmdp = new UserDAO();
+      $newmdp = $newmdp->mdpOublieUser($pseudo);
+      header('Location: connexion.php');
     }
   }
 ?>

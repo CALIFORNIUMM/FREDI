@@ -30,12 +30,14 @@
         }
 
         function set_filename($filename){
-            $this->filename = ROOT . DIRECTORY_SEPARATOR . '/logs/' . $filename;
+            $this->filename = ROOT . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . $filename;
         }
 
         function sendMail($subject, $message, $pseudo, $mail, $password){
             $this->message = "Date : " .$this->date . PHP_EOL . "To : " . $mail . PHP_EOL . "Subject : " . $subject . PHP_EOL . "Message : " . $message . PHP_EOL . "Pseudo : " . $pseudo . PHP_EOL . "Mot de passe : " . $password . PHP_EOL;
-            file_put_contents($this->filename, $this->message, FILE_APPEND);
+
+            $file = ROOT . DIRECTORY_SEPARATOR . "logs" . DIRECTORY_SEPARATOR . "mail_". $pseudo . "_". date('Y-m-d-H-i-s') . ".txt";
+            file_put_contents($file, $this->message, FILE_APPEND);
         }
     }
 ?>

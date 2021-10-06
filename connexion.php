@@ -30,7 +30,7 @@
             $utilisateur = $user->connexionUser($pseudo);
             if(password_verify($mdp, $utilisateur['mdp'])){
                 $_SESSION['user'] = $user->find($utilisateur['id_utilisateur']);
-                header('Location: index.php');
+                header('Location: profil.php');
             }else{
                 $messages->add_messages("Le mot de passe est faux");
             }
