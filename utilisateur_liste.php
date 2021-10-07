@@ -20,16 +20,28 @@
   </ul>
 
   <?php
-  if (count($ligues) > 0) {
+  if (count($users) > 0) {
   ?>
     <table>
       <tr>
         <th>Pseudo</th>
+        <th>Role</th>
       </tr>
       <?php
       foreach ($users as $user) {
+        $role= "";
+        if ($user->get_role() == 0){
+          $role = "Administrateur";
+        }
+        elseif ($user->get_role() == 1){
+          $role = "Contrôleur.";
+        }
+        elseif ($user->get_role() == 2){
+          $role = "Adhérent,.";
+        }
         echo '<tr>';
         echo '<td>' . $user->get_pseudo(). '</td>';
+        echo '<td>' . $role. '</td>';
         echo "</tr>";
       } ?>
     </table>
@@ -37,6 +49,6 @@
 } else {
   echo "<p>Rien à afficher</p>";
 }
-echo "<p>". count($ligues) ." Utilisateur(s)</p>";
+echo "<p>". count($users) ." Utilisateur(s)</p>";
 ?>
 <?php include('footer.php'); ?>
