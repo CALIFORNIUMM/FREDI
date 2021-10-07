@@ -18,7 +18,7 @@
     <li><a href="ligues_charger.php">Charger ligues</a></li>
     <li><a href="ligues_liste.php">Liste ligues</a></li>
   </ul>
-  
+
   <?php
   if (count($clubs) > 0) {
   ?>
@@ -48,8 +48,6 @@
   } else {
     echo "<p>Rien à afficher</p>";
   }
-  ?>
-  <?php
   echo "<p>". count($clubs) ." club(s)</p>";
 
   ?>
