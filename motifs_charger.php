@@ -1,31 +1,13 @@
 <?php
-/**
- * Chargement du fichier CSV dans la base MySQL
- */
-// Initialisations
-include 'init.php';
+  include('header.php'); 
+  $title = "Motifs";
 
-$csv = new CsvDAO();
-$csv = $csv->insert('motifs');
-
-// Affichage
+  //csv dao
+  $csv = new CsvDAO();
+  $csv = $csv->insert('motifs');
 ?>
-<!DOCTYPE html>
-<html lang="fr">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>FREDI - Admin/motifs_charger</title>
-  <link rel="stylesheet" href="css/styles.css">
-</head>
+  <h1>Application</h1>
+  <h2>Charger motifs</h2>
 
-<body>
-  <h2>Chargement des motifs</h2>
-    <?php
-    include "menu.php";
-    ?>
-</body>
-
-</html>
+<?php include('footer.php'); ?>

@@ -1,9 +1,13 @@
 <?php
-    class CsvDAO extends dao 
-    {
+    class CsvDAO extends dao {
+        private $rows;
+        private $sql;
+
+
         function __construct()
         {
             parent::__construct();
+
         }
 
         function insert($csv) {
