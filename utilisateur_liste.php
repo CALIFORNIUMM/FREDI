@@ -20,7 +20,7 @@
   </ul>
 
   <?php
-  if (count($ligues) > 0) {
+  if (count($users) > 0) {
   ?>
     <table>
       <tr>
@@ -37,6 +37,6 @@
 } else {
   echo "<p>Rien à afficher</p>";
 }
-echo "<p>". count($ligues) ." Utilisateur(s)</p>";
+echo "<p>". count($users) ." Utilisateur(s)</p>";
 ?>
 <?php include('footer.php'); ?>
