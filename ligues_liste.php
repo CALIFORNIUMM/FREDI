@@ -1,30 +1,24 @@
 <?php
-/**
- * Liste des pays
- */
-// Initialisations
-include 'init.php';
+  include('header.php'); 
+  $title = "Ligues";
 
-$ligues = new LigueDAO();
-$ligues = $ligues->findAll();
+  //chargement de la classe ligues
+  $ligues = new LigueDAO();
+  $ligues = $ligues->findAll();
 
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>FREDI - Admin/ligues_liste</title>
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-
-<body>
+  <h1>Admin</h1>
   <h2>Liste des ligues</h2>
- 
+  <ul>
+    <li><a href="motifs_charger.php">Charger motifs</a></li>
+    <li><a href="motifs_liste.php">Liste motifs</a></li>
+    <li><a href="clubs_charger.php">Charger clubs</a></li>
+    <li><a href="clubs_liste.php">Liste clubs</a></li>
+    <li><a href="ligues_charger.php">Charger ligues</a></li>
+    <li><a href="ligues_liste.php">Liste ligues</a></li>
+  </ul>
+
   <?php
-  include "menu.php";
   if (count($ligues) > 0) {
   ?>
     <table>
@@ -40,17 +34,10 @@ $ligues = $ligues->findAll();
         echo "</tr>";
       } ?>
     </table>
-  <?php
-  } else {
-    echo "<p>Rien à afficher</p>";
-  }
-  ?>
-  <?php
-  echo "<p>". count($ligues) ." motif(s)</p>";
-
-  ?>
-
-</body>
-
-</html>
-
+<?php
+} else {
+  echo "<p>Rien à afficher</p>";
+}
+echo "<p>". count($ligues) ." motif(s)</p>";
+?>
+<?php include('footer.php'); ?>
