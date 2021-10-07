@@ -1,32 +1,28 @@
 <?php
-/**
- * Liste des pays
- */
-// Initialisations
-include 'init.php';
+  include('header.php'); 
+  $title = "Clubs";
 
-$clubs = new ClubDAO();
-$clubs = $clubs->findAll();
+  //chargement de la classe club
+  $clubs = new ClubDAO();
+  $clubs = $clubs->findAll();
 
 ?>
-<!DOCTYPE html>
-<html lang="fr">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>FREDI - Admin/clubs_liste</title>
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-
-<body>
+  <h1>Admin</h1>
   <h2>Liste des clubs</h2>
- 
+  <ul>
+    <li><a href="motifs_charger.php">Charger motifs</a></li>
+    <li><a href="motifs_liste.php">Liste motifs</a></li>
+    <li><a href="clubs_charger.php">Charger clubs</a></li>
+    <li><a href="clubs_liste.php">Liste clubs</a></li>
+    <li><a href="ligues_charger.php">Charger ligues</a></li>
+    <li><a href="ligues_liste.php">Liste ligues</a></li>
+  </ul>
+  
   <?php
-  include "menu.php";
   if (count($clubs) > 0) {
   ?>
+
     <table>
       <tr>
         <th>ID</th>
@@ -39,7 +35,7 @@ $clubs = $clubs->findAll();
       <?php
       foreach ($clubs as $club) {
         echo '<tr>';
-        echo '<td>' . $club->get_id_adherent() . '</td>';
+        echo '<td>' . $club->get_id_club() . '</td>';
         echo '<td>' . $club->get_lib_club() . '</td>';
         echo '<td>' . $club->get_adr1() . '</td>';
         echo '<td>' . $club->get_adr2() . '</td>';
@@ -58,7 +54,4 @@ $clubs = $clubs->findAll();
 
   ?>
 
-</body>
-
-</html>
-
+<?php include('footer.php'); ?>
