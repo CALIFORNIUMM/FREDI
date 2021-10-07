@@ -25,11 +25,23 @@
     <table>
       <tr>
         <th>Pseudo</th>
+        <th>Role</th>
       </tr>
       <?php
       foreach ($users as $user) {
+        $role= "";
+        if ($user->get_role() == 0){
+          $role = "Administrateur";
+        }
+        elseif ($user->get_role() == 1){
+          $role = "Contrôleur.";
+        }
+        elseif ($user->get_role() == 2){
+          $role = "Adhérent,.";
+        }
         echo '<tr>';
         echo '<td>' . $user->get_pseudo(). '</td>';
+        echo '<td>' . $role. '</td>';
         echo "</tr>";
       } ?>
     </table>
