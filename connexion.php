@@ -30,8 +30,18 @@
             $utilisateur = $user->connexionUser($pseudo);
             if(password_verify($mdp, $utilisateur['mdp'])){
                 $_SESSION['user'] = $user->find($utilisateur['id_utilisateur']);
-                header('Location: profil.php');
-            }else{
+                echo $_SESSION['user']->get_role();
+                if($_SESSION['user']->get_role() == 2) {
+                    header('Location: controleur.php');
+                }
+                else if($_SESSION['user']->get_role() == 1) {
+                    header('Location: admin.php');
+                }
+                else {
+                    header('Location: profil.php');
+                }
+            }
+            else{
                 $messages->add_messages("Le mot de passe est faux");
             }
         }
