@@ -30,18 +30,19 @@
       <?php
       foreach ($users as $user) {
         $role= "";
-        if ($user->get_role() == 0){
+        if ($user->get_role() == 2){
           $role = "Administrateur";
         }
         elseif ($user->get_role() == 1){
           $role = "Contrôleur.";
         }
-        elseif ($user->get_role() == 2){
+        elseif ($user->get_role() == 0){
           $role = "Adhérent,.";
         }
         echo '<tr>';
         echo '<td>' . $user->get_pseudo(). '</td>';
         echo '<td>' . $role. '</td>';
+        echo '<td><a href="role_modifiers.php?id='.$row['id'].'">Modifier Le role</a>';
         echo "</tr>";
       } ?>
     </table>
