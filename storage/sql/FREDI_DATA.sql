@@ -61,19 +61,21 @@ VALUES
 ('test','50','15.00','16.00','45.00','1','2');
 
 
-
+DELIMITER |
+CREATE OR REPLACE TRIGGER before_update_ligne BEFORE UPDATE
+ON ligne FOR EACH ROW
+BEGIN
+    DECLARE mt_periode FLOAT;
+    SELECT mt_km INTO mt_periode FROM periode WHERE est_active=1 LIMIT 1;
+    SET NEW.mt_km = OLD.nb_km * mt_periode;
+END|
 
 DELIMITER |
-CREATE OR REPLACE TRIGGER BEFORE_update_montant_kilometre BEFORE UPDATE 
-ON ligne FOR EACH ROW 
-BEGIN 
-	DECLARE nbkm FLOAT;
-    DECLARE mtkm FLOAT;
-    DECLARE result FLOAT;
-		SELECT ligne.nb_km, periode.mt_km INTO nbkm, mtkm
-		FROM ligne, periode, note
-        WHERE periode.id_periode = note.id_periode
-        AND note.id_note = ligne.id_note;
-   SET result = (nbkm * mtkm);
-   SET NEW.mt_km = result;
-END |
+CREATE OR REPLACE TRIGGER before_insert_ligne BEFORE INSERT
+ON ligne FOR EACH ROW
+BEGIN
+    DECLARE mt_periode FLOAT;
+    SELECT mt_km INTO mt_periode FROM periode WHERE est_active=1 LIMIT 1;
+    SET NEW.mt_km = NEW.nb_km * mt_periode;
+END|
+
