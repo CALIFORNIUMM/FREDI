@@ -33,3 +33,18 @@ VALUES
 (7, 'Oxygénation'),
 (8, 'Convocation'),
 (9, 'Formation');
+
+INSERT INTO periode(`lib_periode`,`est_active`,`mt_km`) 
+VALUES
+('2021','1','0.523'),
+('2020','0','0.423'),
+('2019','0','0.621'),
+('2018','0','0.359'),
+('2017','0','0.428'),
+('2016','0','0.541'),
+('2015','0','0.593');
+
+
+INSERT INTO note(`est_valide`,`mt_total`,`dat_remise`,`nr_ordre`,`id_periode`,`id_utilisateur`)
+VALUES
+(),
