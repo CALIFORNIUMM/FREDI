@@ -7,7 +7,9 @@
 # Il suffit de copier coller l'intérieur du fichier __fredi21_structure.sql .
 Une fois la base créer vous pouvez essayer de vous connecter / inscrire, 
 si vous voulez vous connecter avec des utilisateurs déjà créé en vous leurs identifiants :
+`
 
+```
 Les IDENTIFIANTS de certains utilisateurs : 
 
 user : yohan
@@ -21,3 +23,4 @@ mdp : David31000-/
 
 user : ph
 mdp : Honore31000-/
+```
