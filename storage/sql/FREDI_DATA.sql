@@ -65,9 +65,14 @@ DELIMITER |
 CREATE OR REPLACE TRIGGER before_update_ligne BEFORE UPDATE
 ON ligne FOR EACH ROW
 BEGIN
+
     DECLARE mt_periode FLOAT;
+    
     SELECT mt_km INTO mt_periode FROM periode WHERE est_active=1 LIMIT 1;
     SET NEW.mt_km = NEW.nb_km * mt_periode;
+
+    SET NEW.mt_total = NEW.mt_repas + NEW.mt_peage + NEW.mt_hebergement+NEW.mt_km;
+    
 END|
 
 DELIMITER |
@@ -75,7 +80,10 @@ CREATE OR REPLACE TRIGGER before_insert_ligne BEFORE INSERT
 ON ligne FOR EACH ROW
 BEGIN
     DECLARE mt_periode FLOAT;
+    
     SELECT mt_km INTO mt_periode FROM periode WHERE est_active=1 LIMIT 1;
     SET NEW.mt_km = NEW.nb_km * mt_periode;
+
+    SET NEW.mt_total = NEW.mt_repas + NEW.mt_peage + NEW.mt_hebergement+NEW.mt_km;
 END|
 
