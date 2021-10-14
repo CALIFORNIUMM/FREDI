@@ -1,5 +1,4 @@
 <?php
-  include('app/class/User.php');
   include('header.php'); 
   
   $title = "Profil";

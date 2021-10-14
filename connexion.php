@@ -31,10 +31,10 @@
             if(password_verify($mdp, $utilisateur['mdp'])){
                 $_SESSION['user'] = $user->find($utilisateur['id_utilisateur']);
                 echo $_SESSION['user']->get_role();
-                if($_SESSION['user']->get_role() == 2) {
+                if($_SESSION['user']->get_role() == 1) {
                     header('Location: controleur.php');
                 }
-                else if($_SESSION['user']->get_role() == 1) {
+                else if($_SESSION['user']->get_role() == 2) {
                     header('Location: admin.php');
                 }
                 else {

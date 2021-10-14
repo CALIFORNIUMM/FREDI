@@ -2,6 +2,9 @@
     include('init.php');
     $messages = array();  // Message d'erreur
     $title = NULL;
+    if(isset($_SESSION['user'])){
+        $session = $_SESSION['user'];
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -29,7 +32,10 @@
             <div id="top-nav">
                 <ul>
                 <?php 
-                    if(isset($_SESSION['user'])){
+                    if(isset($session)){
+                        if($session->get_role() == 2){
+                            echo '<li><a href="admin.php">ADMIN</a></li>';
+                        }
                         echo '<li><a href="profil.php">MON COMPTE</a></li>';
                         echo '<li><a href="deconnexion.php">DECONNEXION</a></li>';
                     }else{
