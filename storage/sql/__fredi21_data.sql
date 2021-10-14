@@ -1,60 +1,9 @@
-DELIMITER |
-CREATE OR REPLACE TRIGGER before_update_ligne BEFORE UPDATE
-ON ligne FOR EACH ROW
-BEGIN
-
-    DECLARE mt_periode FLOAT;
-    
-    SELECT mt_km INTO mt_periode FROM periode WHERE est_active=1 LIMIT 1;
-    SET NEW.mt_km = NEW.nb_km * mt_periode;
-
-    SET NEW.mt_total = NEW.mt_repas + NEW.mt_peage + NEW.mt_hebergement+NEW.mt_km;
-    
-END|
-
-DELIMITER |
-CREATE OR REPLACE TRIGGER before_insert_ligne BEFORE INSERT
-ON ligne FOR EACH ROW
-BEGIN
-    DECLARE mt_periode FLOAT;
-    
-    SELECT mt_km INTO mt_periode FROM periode WHERE est_active=1 LIMIT 1;
-    SET NEW.mt_km = NEW.nb_km * mt_periode;
-
-    SET NEW.mt_total = NEW.mt_repas + NEW.mt_peage + NEW.mt_hebergement+NEW.mt_km;
-END|
-
-DELIMITER |
-CREATE OR REPLACE TRIGGER after_update_ligne AFTER UPDATE
-ON ligne FOR EACH ROW
-BEGIN
-    DECLARE mt_total_ligne FLOAT;
-	SELECT SUM(ligne.mt_total) INTO mt_total_ligne FROM ligne, note WHERE ligne.id_note = NEW.id_note AND note.id_note = ligne.id_note;
-    UPDATE note SET mt_total = mt_total_ligne WHERE note.id_note = NEW.id_note;
-END|
-
-
-DELIMITER |
-CREATE OR REPLACE TRIGGER after_insert_ligne AFTER INSERT
-ON ligne FOR EACH ROW
-BEGIN
-    DECLARE mt_total_ligne FLOAT;
-	SELECT SUM(ligne.mt_total) INTO mt_total_ligne FROM ligne, note WHERE ligne.id_note = NEW.id_note AND note.id_note = ligne.id_note;
-    UPDATE note SET mt_total = mt_total_ligne WHERE note.id_note = NEW.id_note;
-END|
-
-
+USE fredi21;
 INSERT INTO `utilisateur` (`id_utilisateur`, `pseudo`, `mdp`, `mail`, `nom`, `prenom`, `role`) VALUES
 (9, 'yohan', '$2y$10$jaa7NnbdBhEuL5hMLGMbteg.KXzsep5/VCVs.Ql9DZj/SYZ45jHdG', 'yohan.marques@limayrac.fr', 'marques', 'yohan', 2),
 (10, 'agustin', '$2y$10$ZT6T366PoTdRCNY.8KCYaeL5atqndjRct0ToNsksraYWlRWYC2qa2', 'agustin.quintero@limayrac.fr', 'Quintero', 'Agustin', 2),
 (11, 'david', '$2y$10$18jqscpcfns8YHYcYFabl.dIFP7pmLptXd4WTm4WpwgBtQqBsguym', 'david.peyrard@limayrac.fr', 'Peyrard', 'David', 1),
 (12, 'ph', '$2y$10$50fd6ZGE.4gSJmwGCubcLeMzzx6e76j6AU5NzFWOtwF77HQCF.OC6', 'pierrehonore.akendengue@limayrac.fr', 'Akendengue', 'Pierre-Honoré', 0);
-
-INSERT INTO `adherent` (`id_adherent`, `nr_licence`, `adr1`, `adr2`, `adr3`, `id_utilisateur`, `id_club`) VALUES
-(1, '123', '1 rue du clone', '31000', 'toulouse', 9, 11),
-(2, '012', '2 rue du clone', '31000', 'toulouse', 10, 5),
-(3, '456', '3 rue du clone', '31000', 'toulouse', 11, 6),
-(4, '789', '4 rue du clone', '31000', 'toulouse', 12, 12);
 
 INSERT INTO ligue(`id_ligue`,`lib_ligue`)
 VALUES
@@ -79,6 +28,12 @@ VALUES
 (10,'Football club Merville','Rue Emile Pouvillon','31330','MERVILLE',2),
 (11,'Football Club Bassin d Arcachon','Boulevard Mestrezat - Stade jean Brousse','33120','ARCACHON',3),
 (12,'Andernos Sport Football Club','Plaine des Sports Jacques Rosazza','33510','ANDERNOS LES BAINS',3);
+
+INSERT INTO `adherent` (`id_adherent`, `nr_licence`, `adr1`, `adr2`, `adr3`, `id_utilisateur`, `id_club`) VALUES
+(1, '123', '1 rue du clone', '31000', 'toulouse', 9, 11),
+(2, '012', '2 rue du clone', '31000', 'toulouse', 10, 5),
+(3, '456', '3 rue du clone', '31000', 'toulouse', 11, 6),
+(4, '789', '4 rue du clone', '31000', 'toulouse', 12, 12);
 
 INSERT INTO motif(`id_motif`,`lib_motif`)
 VALUES
