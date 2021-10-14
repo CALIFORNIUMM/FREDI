@@ -102,7 +102,30 @@
             // Retourne un tableau d'objets
             return $nb;
         }
-    
+
+        public function isExistId($id){
+            $sql = "SELECT count(*) as nb FROM utilisateur WHERE id_utilisateur = :id_utilisateur";
+            try {
+                $sth = $this->pdo->prepare($sql);
+                $sth->execute(array(
+                    ":id_utilisateur" => $id
+                ));
+                $row = $sth->fetch(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
+            }
+            $nb=null;
+            if($row) {
+                if($row['nb'] == 0){
+                    $nb = FALSE;
+                }else{
+                    $nb = TRUE;
+                }
+            }
+            // Retourne un tableau d'objets
+            return $nb;
+        }
+
         function connexionUser($pseudo){
             $sql = "SELECT id_utilisateur, mdp FROM utilisateur WHERE pseudo = :pseudo";
             try {
@@ -140,6 +163,20 @@
 
             $message = new Log();
             $message->sendMail("Rénitialisation de votre mot de passe !", "Vous avez demandez à que votre mot de passe soit rénitialisé car vous l'avez certainement oublié. Voici votre nouveau mot de passe : ", $user->get_pseudo(), $user->get_mail(), $password);
+        }
+
+        public function updateRole($id, $role){
+            $sql = "UPDATE utilisateur SET role=:role WHERE id_utilisateur=:id_utilisateur";
+            try {
+                $sth = $this->pdo->prepare($sql);
+                $sth->execute(array(
+                    ":role" => $role,
+                    ":id_utilisateur" => $id
+                ));
+                $row = $sth->fetch(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
+            }
         }
     }
 ?>
