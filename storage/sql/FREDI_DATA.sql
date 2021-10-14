@@ -67,7 +67,7 @@ ON ligne FOR EACH ROW
 BEGIN
     DECLARE mt_periode FLOAT;
     SELECT mt_km INTO mt_periode FROM periode WHERE est_active=1 LIMIT 1;
-    SET NEW.mt_km = OLD.nb_km * mt_periode;
+    SET NEW.mt_km = NEW.nb_km * mt_periode;
 END|
 
 DELIMITER |
