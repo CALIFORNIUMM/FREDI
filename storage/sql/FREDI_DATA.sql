@@ -57,4 +57,23 @@ INSERT INTO ligne(`lib_trajet`,`nb_km`,`mt_peage`,`mt_repas`,`mt_hebergement`,`i
 VALUES
 ('Reu','50','15.00','16.00','45.00','1','2'),
 ('Comp','50','26.00','11.00','27.00','2','3'),
-('Sta','100','19.00','19.00','53.00','5','2');
+('Sta','100','19.00','19.00','53.00','5','2'),
+('test','50','15.00','16.00','45.00','1','2');
+
+
+
+
+DELIMITER |
+CREATE OR REPLACE TRIGGER BEFORE_update_montant_kilometre BEFORE UPDATE 
+ON ligne FOR EACH ROW 
+BEGIN 
+	DECLARE nbkm FLOAT;
+    DECLARE mtkm FLOAT;
+    DECLARE result FLOAT;
+		SELECT ligne.nb_km, periode.mt_km INTO nbkm, mtkm
+		FROM ligne, periode, note
+        WHERE periode.id_periode = note.id_periode
+        AND note.id_note = ligne.id_note;
+   SET result = (nbkm * mtkm);
+   SET NEW.mt_km = result;
+END |
