@@ -36,6 +36,9 @@
                         if($session->get_role() == 2){
                             echo '<li><a href="admin.php">ADMIN</a></li>';
                         }
+                        if($session->get_role() == 1){
+                            echo '<li><a href="controleur.php">CONTROLEUR</a></li>';
+                        }
                         echo '<li><a href="profil.php">MON COMPTE</a></li>';
                         echo '<li><a href="deconnexion.php">DECONNEXION</a></li>';
                     }else{
