@@ -45,6 +45,16 @@ VALUES
 ('2015','0','0.593');
 
 
-INSERT INTO note(`est_valide`,`mt_total`,`dat_remise`,`nr_ordre`,`id_periode`,`id_utilisateur`)
+INSERT INTO note(`est_valide`,`id_periode`,`id_utilisateur`)
 VALUES
-(),
+('0','1','12'),
+('0','2','12'),
+('0','3','12'),
+('0','4','12'),
+('0','5','12');
+
+INSERT INTO ligne(`lib_trajet`,`nb_km`,`mt_peage`,`mt_repas`,`mt_hebergement`,`id_motif`,`id_note`)
+VALUES
+('Reu','50','15.00','16.00','45.00','1','2'),
+('Comp','50','26.00','11.00','27.00','2','3'),
+('Sta','100','19.00','19.00','53.00','5','2');
