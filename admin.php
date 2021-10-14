@@ -21,8 +21,12 @@
   
 ?>
 
-  <h1>Application</h1>
+  <h1>Admin</h1>
   <h2>Charger Table</h2>
+  <ul>
+    <li><a href="admin.php">Charger</a> les tables</li>
+    <li><a href="utilisateur_liste.php">Liste</a> des utilisateurs</li>
+  </ul>
   <?php 
     if($messages->is_empty() == FALSE){
         $messages->afficher();

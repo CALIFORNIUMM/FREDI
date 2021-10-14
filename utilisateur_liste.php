@@ -11,12 +11,8 @@
   <h1>Admin</h1>
   <h2>Liste des Utilisateur</h2>
   <ul>
-    <li><a href="motifs_charger.php">Charger motifs</a></li>
-    <li><a href="motifs_liste.php">Liste motifs</a></li>
-    <li><a href="clubs_charger.php">Charger clubs</a></li>
-    <li><a href="clubs_liste.php">Liste clubs</a></li>
-    <li><a href="ligues_charger.php">Charger ligues</a></li>
-    <li><a href="ligues_liste.php">Liste ligues</a></li>
+    <li><a href="admin.php">Charger</a> les tables</li>
+    <li><a href="utilisateur_liste.php">Liste</a> des utilisateurs</li>
   </ul>
 
   <?php
@@ -27,6 +23,7 @@
         <th>Pseudo</th>
         <th>Role</th>
       </tr>
+      
       <?php
       foreach ($users as $user) {
         $role= "";
@@ -34,15 +31,15 @@
           $role = "Administrateur";
         }
         elseif ($user->get_role() == 1){
-          $role = "Contrôleur.";
+          $role = "Contrôleur";
         }
         elseif ($user->get_role() == 0){
-          $role = "Adhérent,.";
+          $role = "Adhérent";
         }
         echo '<tr>';
         echo '<td>' . $user->get_pseudo(). '</td>';
         echo '<td>' . $role. '</td>';
-        echo '<td><a href="role_modifiers.php?id='.$row['id'].'">Modifier Le role</a>';
+        echo '<td><a href="role_modifiers.php?id='.$user->get_id_utilisateur().'">Modifier Le role</a>';
         echo "</tr>";
       } ?>
     </table>
