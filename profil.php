@@ -7,6 +7,6 @@
   <h2>Page de mon profil</h2>
   <p>Mon rôle : <?= $session->get_role() ?></p>
 
-  
+  ee
 
 <?php include('footer.php'); ?>
