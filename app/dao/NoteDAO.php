@@ -16,13 +16,21 @@
             }
             $note=null;
             if($row) {
-                
                 $note = new Note($row);
+                $ligneDAO = new LigneDAO();
+                $lignes = $lignesDAO->findAllByIdNote($id_note);
+                $note->set_lignes($lignes);
             }
             // Retourne l'objet métier
             return $note;
         } // function find()
 
+
+        /**
+        * Lecture de toutes les notes
+        * @return array
+        * @throws Exception
+        */
         function findAll() {
             $sql = "SELECT * FROM note";
             try {
@@ -32,12 +40,15 @@
             } catch (PDOException $e) {
                 throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
             }
-            $note = array();
+            $notes = array();
+            $lignesDAO = new LigneDAO();
             foreach ($rows as $row) {
-                $note[] = new Note($row);
+                $lignes = $lignesDAO->findAllByIdNote($row["id_note"]);
+                $row['lignes']=$lignes;
+                $notes[] = new Note($row);
             }
             // Retourne un tableau d'objets
-            return $note;
+            return $notes;
         } // function findAll()
     }
 ?>
