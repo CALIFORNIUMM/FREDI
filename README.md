@@ -1,21 +1,25 @@
 # FREDI Groupe 3
 
 ## Bienvenue sur le projet FREDI du groupe 3 qui se composent de :
--Agustin ; 
--Yohan ; 
--David ; 
--Pierre-Honoré.
+- Agustin ,
+- Yohan ,
+- David ,
+- Pierre-Honoré.
 
 # TOUS LES LIVRABLES SONT DANS /storage/livrables
 
 - !!! Lors de la création de la base, les données sont insérées directement. Pas besoin d'aller les chercher dans FREDI_DATA.sql !!!
 
-# Il suffit de copier coller l'intérieur du fichier __fredi21_structure.sql .
-Une fois la base créer vous pouvez essayer de vous connecter / inscrire,
-si vous voulez vous connecter avec des utilisateurs déjà créé en voila leurs identifiants :
+# Pour la mise en place du serveur SQL :
+- 1.Il vous faut vous rendre dans **/storage/sql**
+- 2.Puis ajoutez dans l'ordre les fichier suivant dans la partie SQL
+    - `__fredi21_structure_simple.sql`
+    - `__fredi21_trigger.sql`
+    - `__fredi21_data.sql` (Si vous voulez les données d'exemples)
 
 
-#Documentation détaillée du projet dans le dossier storage/livrables/documentation FREDI PDF
+#Documentation détaillée du projet dans le dossier
+- **storage/livrables/documentation FREDI.pdf**
 
 ```
 Les IDENTIFIANTS de certains utilisateurs :
@@ -38,6 +42,6 @@ mdp : Honore31000-/
 # TOUS LES 'MAILS' SONT DANS DOSSIER /logs
 ```
 Pour savoir quel fichier regarder il faut :
-`1. regarder les fichiers avec le 'nom' __mail_`__
+1. regarder les fichiers avec le 'nom' => mail_
 `2. il est suivit de [NOM D'UTILISATEUR]-DATE-H:M:S.txt`
 ```
