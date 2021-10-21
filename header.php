@@ -55,6 +55,6 @@
 
     <div id="content">
 <?php 
-    $messages = New Messages();
+    $messages = New Flash();
     $messages->afficher()->remove_messages()->put();
 ?>

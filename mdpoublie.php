@@ -8,6 +8,7 @@
 
   //messages
   $messages = New Messages("error");
+  $flash = New Flash();
   
   if(isset($submit)){
 
@@ -37,6 +38,7 @@
     if($messages->is_empty() == TRUE){
       $newmdp = new UserDAO();
       $newmdp = $newmdp->mdpOublieUser($pseudo);
+      $flash->set_type('succes')->add_messages('Votre nouveaux mot de passe vous à été envoyé par mail : /logs/mail_'. $pseudo . '_'. date('Y-m-d-H-i-s') . '.txt')->put();
       header('Location: connexion.php');
     }
   }
