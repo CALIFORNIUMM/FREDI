@@ -25,6 +25,7 @@
     $users = New UserDAO();
     //messages
     $messages = New Messages("error");
+    $flash = New Flash();
 
     if(isset($_POST['submit'])){
         if(empty(trim($pseudo))){
@@ -138,7 +139,7 @@
             $nAdherent = new AdherentDAO();
             $nAdherent = $nAdherent->newAdherent($adherent);
 
-            echo 'Vous vous êtes bien inscrit';
+            $flash->set_type('succes')->add_messages('Vous vous êtes bien inscrit : '.$user->get_pseudo().'')->put();
             header("Location: connexion.php");
         }
 

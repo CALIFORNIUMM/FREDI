@@ -54,3 +54,7 @@
     </header>
 
     <div id="content">
+<?php 
+    $messages = New Flash();
+    $messages->afficher()->remove_messages()->put();
+?>
