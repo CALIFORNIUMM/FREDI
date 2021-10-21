@@ -41,5 +41,5 @@ mdp : Honore31000-/
 ```
 Pour savoir quel fichier regarder il faut :
 1. regarder les fichiers avec le 'nom' => mail_
-`2. il est suivit de [NOM D'UTILISATEUR]-DATE-H:M:S.txt`
+2. il est suivit de [NOM D'UTILISATEUR]-DATE-H:M:S.txt
 ```
