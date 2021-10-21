@@ -5,6 +5,7 @@
 * @author 
 */
 include('app/class/User.php');
+include('app/class/Flash.php');
 session_start();
 /**
  * Paramétrage pour certains serveurs qui n'affichent pas les erreurs PHP par défaut

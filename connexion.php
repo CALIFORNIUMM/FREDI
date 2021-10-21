@@ -6,6 +6,7 @@
     $user = new UserDAO();
     //liste des messages
     $messages = New Messages("error");
+    $flash = New Flash();
 
     $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : NULL;
     $mdp = isset($_POST['mdp']) ? $_POST['mdp'] : NULL;
@@ -32,12 +33,15 @@
                 $_SESSION['user'] = $user->find($utilisateur['id_utilisateur']);
                 echo $_SESSION['user']->get_role();
                 if($_SESSION['user']->get_role() == 1) {
+                    $flash->set_type('succes')->add_messages('Vous vous êtes bien connecté : '.$_SESSION['user']->get_pseudo().'')->put();
                     header('Location: controleur.php');
                 }
                 else if($_SESSION['user']->get_role() == 2) {
+                    $flash->set_type('succes')->add_messages('Vous vous êtes bien connecté : '.$_SESSION['user']->get_pseudo().'')->put();
                     header('Location: admin.php');
                 }
                 else {
+                    $flash->set_type('succes')->add_messages('Vous vous êtes bien connecté : '.$_SESSION['user']->get_pseudo().'')->put();
                     header('Location: profil.php');
                 }
             }

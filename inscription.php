@@ -25,6 +25,7 @@
     $users = New UserDAO();
     //messages
     $messages = New Messages("error");
+    $flash = New Flash();
 
     if(isset($_POST['submit'])){
         if(empty(trim($pseudo))){
@@ -138,7 +139,7 @@
             $nAdherent = new AdherentDAO();
             $nAdherent = $nAdherent->newAdherent($adherent);
 
-            echo 'Vous vous êtes bien inscrit';
+            $flash->set_type('succes')->add_messages('Vous vous êtes bien inscrit : '.$user->get_pseudo().'')->put();
             header("Location: connexion.php");
         }
 
@@ -176,8 +177,14 @@
     <select name="ligue" id="ligue">
         <option value=""selected>--Please choose an option--</option>
         <?php
-            foreach($ligues as $ligue){
-                echo "<option value=\"".$ligue->get_id_ligue()."\">".$ligue->get_lib_ligue()."</option>";
+            foreach($ligues as $liguee){
+                $selected = NULL;
+                if($ligue == $liguee->get_id_ligue()){
+                    $selected = "selected";
+                }else{
+                    $selected = NULL;
+                }
+                echo "<option value=\"".$liguee->get_id_ligue()."\" $selected>".$liguee->get_lib_ligue()."</option>";
             }
         ?>
     </select><br><br>
@@ -195,8 +202,14 @@
     <select name="club" id="club">
         <option value=""selected>--Please choose an option--</option>
         <?php
-            foreach($clubs as $club){
-                echo "<option value=\"".$club->get_id_club()."\">".$club->get_lib_club()."</option>";
+            foreach($clubs as $clube){
+                $selectede = NULL;
+                if($club == $clube->get_id_club()){
+                    $selectede = "selected";
+                }else{
+                    $selectede = NULL;
+                }
+                echo "<option value=\"".$clube->get_id_club()."\" $selectede>".$clube->get_lib_club()."</option>";
             }
         ?>
     </select><br><br>

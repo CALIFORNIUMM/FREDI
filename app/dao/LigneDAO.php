@@ -32,12 +32,35 @@
             } catch (PDOException $e) {
                 throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
             }
-            $ligne = array();
+            $lignes = array();
             foreach ($rows as $row) {
-                $ligne[] = new Ligne($row);
+                $lignes[] = new Ligne($row);
             }
             // Retourne un tableau d'objets
-            return $ligne;
+            return $lignes;
         } // function findAll()
+
+        /**
+        * Lecture de toutes les lignes d'un ID note
+        * @param int $id_note
+        * @return \Ligne
+        * @throws Exception
+        */
+        function findAllByIdNote($id_note) {
+            $sql = "select * from ligne where id_note = :id_note";
+            try {
+                $sth = $this->pdo->prepare($sql);
+            $sth->execute(array(":id_note" => $id_note));
+            $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+            die("Erreur lors de la requête SQL : " . $e->getMessage());
+            }
+            $lignes = array();
+            foreach ($rows as $row) {
+            $lignes[] = new Ligne($row);
+            }
+            // Retourne un tableau d'objets
+            return $lignes;
+        } //findAllByIdNote()
     }
 ?>
