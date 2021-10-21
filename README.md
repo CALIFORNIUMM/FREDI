@@ -7,12 +7,14 @@
 - !!! Lors de la création de la base, les données sont insérées directement. Pas besoin d'aller les chercher dans FREDI_DATA.sql !!!
 
 # Il suffit de copier coller l'intérieur du fichier __fredi21_structure.sql .
-Une fois la base créer vous pouvez essayer de vous connecter / inscrire, 
+Une fois la base créer vous pouvez essayer de vous connecter / inscrire,
 si vous voulez vous connecter avec des utilisateurs déjà créé en voila leurs identifiants :
 `
 
-``` 
-Les IDENTIFIANTS de certains utilisateurs : 
+#Documentation détaillée du projet dans le dossier storage/livrables/documentation FREDI PDF
+
+```
+Les IDENTIFIANTS de certains utilisateurs :
 
 user : yohan
 mdp : Yohan31000-/

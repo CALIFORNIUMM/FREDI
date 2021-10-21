@@ -1,10 +1,9 @@
 <?php
-  include('header.php'); 
-  
-  $title = "Profil";
+$title = "Profil";
+include('header.php'); 
 
-  $notes = new NoteDAO();
-  $notes = $notes->findAll();
+$notes = new NoteDAO();
+$notes = $notes->findAll();
 ?>
   <h1>Bienvenu(e) <?= $session->get_pseudo() ?></h1>
   <h2>Page de mon profil</h2>

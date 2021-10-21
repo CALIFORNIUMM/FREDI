@@ -1,7 +1,7 @@
 <?php
-    include('header.php'); 
     $title = "Inscription";
-
+    include('header.php'); 
+    
     //Liste des ligues existantes
     $ligues = New LigueDAO();
     $ligues = $ligues->findAll();

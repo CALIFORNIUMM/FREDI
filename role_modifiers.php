@@ -1,6 +1,7 @@
 <?php
+    $title = "Admin Edit rôle";
     include('header.php');
-    $title = "Utilisateur";
+    
 
     //Charger un utilisateur
     $id_utilisateur = isset($_GET['id']) ? $_GET['id'] : NULL;

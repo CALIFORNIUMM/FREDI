@@ -1,6 +1,6 @@
 <?php
-  include('header.php'); 
   $title = "Mot de passe oublié";
+  include('header.php'); 
 
   $mail = isset($_POST['mail']) ? $_POST['mail'] : NULL;
   $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : NULL;
