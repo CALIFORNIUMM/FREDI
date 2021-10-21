@@ -127,3 +127,34 @@ h1, h2, h3, h4, h5, h6 {
 .succes {
     color : green;
   }
+
+table, th, td {
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    border-collapse: collapse;
+    }
+
+tr:nth-child(odd) {
+    background-color: lightgrey;
+    }
+    tr:nth-child(even) {
+    background-color: white; ;
+    }
+
+th,td {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size : 14px;
+    width:150px;
+    padding: 5px;
+    text-align:center;
+    }
+
+th {
+    background-color: grey;
+    color: white; 
+    }
+
+td {
+    color: black;
+    }

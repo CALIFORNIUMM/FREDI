@@ -7,6 +7,7 @@
         private $nr_ordre;
         private $id_periode;
         private $id_utilisateur;
+        private $lignes=array();
 
         function __construct(Array $note){
             $this->fill($note);        
@@ -40,6 +41,10 @@
             return $this->id_utilisateur;
         }
 
+        public function get_lignes(){
+            return $this->lignes;
+        }
+
         //Function SET
         public function set_id_note($id_note){
             $this->id_note = $id_note;
@@ -67,6 +72,10 @@
         
         public function set_id_utilisateur($id_utilisateur){
             return $this->id_utilisateur = $id_utilisateur;
+        }
+
+        public function set_lignes(array $lignes){
+            return $this->lignes = $lignes;
         }
 
         //Function de fill sur les setter
