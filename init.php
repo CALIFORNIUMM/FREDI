@@ -5,6 +5,7 @@
 * @author 
 */
 include('app/class/User.php');
+include('app/class/Messages.php');
 session_start();
 /**
  * Paramétrage pour certains serveurs qui n'affichent pas les erreurs PHP par défaut
@@ -36,6 +37,10 @@ function my_autoloader($classe) {
 }
 spl_autoload_register('my_autoloader');
 
+/**
+ * Session messages flash
+ */
+//$messages = New Messages();
 /**
  * Vide le cache du navigateur
  */

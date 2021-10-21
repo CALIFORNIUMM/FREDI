@@ -54,3 +54,7 @@
     </header>
 
     <div id="content">
+<?php 
+    $messages = New Messages();
+    $messages->afficher()->remove_messages()->put();
+?>
