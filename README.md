@@ -6,9 +6,8 @@
 - David ,
 - Pierre-Honoré.
 
-# TOUS LES LIVRABLES SONT DANS /storage/livrables
-
-- !!! Lors de la création de la base, les données sont insérées directement. Pas besoin d'aller les chercher dans FREDI_DATA.sql !!!
+# TOUS LES LIVRABLES SONT DANS 
+- **`/storage/livrables`**
 
 # Pour la mise en place du serveur SQL :
 - 1.Il vous faut vous rendre dans **/storage/sql**
@@ -18,12 +17,11 @@
     - `__fredi21_data.sql` (Si vous voulez les données d'exemples)
 
 
-#Documentation détaillée du projet dans le dossier
+# Documentation détaillée du projet dans le dossier
 - **storage/livrables/documentation FREDI.pdf**
 
+# Les IDENTIFIANTS de certains utilisateurs :
 ```
-Les IDENTIFIANTS de certains utilisateurs :
-
 user : yohan
 mdp : Yohan31000-/
 
