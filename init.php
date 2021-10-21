@@ -38,10 +38,6 @@ function my_autoloader($classe) {
 spl_autoload_register('my_autoloader');
 
 /**
- * Session messages flash
- */
-//$messages = New Messages();
-/**
  * Vide le cache du navigateur
  */
 header("Cache-Control: no-cache, must-revalidate");
