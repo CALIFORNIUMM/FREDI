@@ -1,11 +1,11 @@
 
 <?php
-  include('header.php');
-  $title = "Utilisateur";
+$title = "Admin Liste des utilisateurs";
+include('header.php');
 
-  //chargement de la classe ligues
-  $users = new UserDAO();
-  $users = $users->findAll();
+//chargement de la classe ligues
+$users = new UserDAO();
+$users = $users->findAll();
 
 ?>
   <h1>Admin</h1>

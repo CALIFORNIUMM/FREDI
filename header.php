@@ -1,7 +1,6 @@
 <?php
     include('init.php');
     $messages = array();  // Message d'erreur
-    $title = NULL;
     if(isset($_SESSION['user'])){
         $session = $_SESSION['user'];
     }

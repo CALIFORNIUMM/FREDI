@@ -1,7 +1,7 @@
 <?php
-    include('header.php');
     $title = "Connexion";
-
+    include('header.php');
+    
     //DAO user
     $user = new UserDAO();
     //liste des messages

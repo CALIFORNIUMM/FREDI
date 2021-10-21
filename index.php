@@ -1,7 +1,7 @@
 <?php
-  include('header.php'); 
   $title = "Accueil";
-
+  include('header.php'); 
+  
 ?>
   <h1>Application</h1>
   <h2>Accueil</h2>

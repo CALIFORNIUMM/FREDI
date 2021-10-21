@@ -1,7 +1,6 @@
 <?php
-  include('header.php'); 
-  
   $title = "Contrôleur";
+  include('header.php'); 
   $session = $_SESSION['user'];
 ?>
   <h1>Menu Contrôleur</h1>

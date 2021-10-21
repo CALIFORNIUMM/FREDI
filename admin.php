@@ -1,6 +1,6 @@
 <?php
+  $title = "Admin";
   include('header.php'); 
-  $title = "Recharger";
 
   $choix = isset($_POST['choix']) ? $_POST['choix'] : NULL;
   $submit = isset($_POST['submit']) ? $_POST['submit'] : NULL;
