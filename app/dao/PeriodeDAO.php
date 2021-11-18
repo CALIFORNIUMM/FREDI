@@ -39,5 +39,22 @@
             // Retourne un tableau d'objets
             return $periode;
         } // function findAll()
+
+        function findLibEnCours() {
+            $sql = "SELECT lib_periode FROM periode WHERE est_active = 1";
+            try {
+                $sth = $this->pdo->prepare($sql);
+                $sth->execute();
+                $row = $sth->fetch(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
+            }
+            $periode=null;
+            if($row) {
+                $periode = new Periode($row);
+            }
+            // Retourne l'objet
+            return $periode;
+        } // function find()
     }
 ?>

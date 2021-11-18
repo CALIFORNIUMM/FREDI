@@ -18,7 +18,7 @@
             if($row) {
                 $note = new Note($row);
                 $ligneDAO = new LigneDAO();
-                $lignes = $lignesDAO->findAllByIdNote($id_note);
+                $lignes = $ligneDAO->findAllByIdNote($id_note);
                 $note->set_lignes($lignes);
             }
             // Retourne l'objet métier
@@ -50,5 +50,25 @@
             // Retourne un tableau d'objets
             return $notes;
         } // function findAll()
+
+        function findByUser($id_user) {
+            $sql = "SELECT * FROM note, periode WHERE note.id_periode = periode.id_periode AND periode.est_active = 1 AND note.id_utilisateur = :id_utilisateur";
+            try {
+                $sth = $this->pdo->prepare($sql);
+                $sth->execute(array(":id_utilisateur" => $id_user));
+                $row = $sth->fetch(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
+            }
+            $note=null;
+            if($row) {
+                $note = new Note($row);
+                $ligneDAO = new LigneDAO();
+                $lignes = $ligneDAO->findAllByIdNote($note->get_id_note());
+                $note->set_lignes($lignes);
+            }
+            // Retourne l'objet métier
+            return $note;
+        } // function findByUser()
     }
 ?>
