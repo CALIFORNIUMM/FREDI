@@ -42,7 +42,7 @@ $motifdao = New MotifDAO();
             echo '<td>'.$ligne->get_mt_repas().'</td>';
             echo '<td>'.$ligne->get_mt_hebergement().'</td>';
             echo '<td>'.$ligne->get_mt_total().'</td>';
-            echo '<td><a href="">Modifier</a> <a href="">Supprimer</a></td>';
+            echo '<td><a href="ligne_modifier.php?id_ligne='.$ligne->get_id_ligne().'">Modifier</a> <a href="">Supprimer</a></td>';
             echo '</tr>';
         }
         ?>
