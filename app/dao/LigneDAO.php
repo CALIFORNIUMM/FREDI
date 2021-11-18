@@ -101,23 +101,20 @@
     */
     public function update(ligne $ligne)
     {
-        $sql = "update ligne set dat_ligne=:dat_ligne,lib_trajet=:lib_trajet,nb_km=:nb_km,mt_km=:mt_km,mt_peage=:mt_peage,mt_repas=:mt_repas,mt_hebergement=:mt_hebergement,mt_total=:mt_total,id_motif=:id_motif,id_note=:id_note where id_ligne= :id_ligne";
+        $sql = "update ligne set lib_trajet=:lib_trajet,nb_km=:nb_km,mt_peage=:mt_peage,mt_repas=:mt_repas,mt_hebergement=:mt_hebergement,id_motif=:id_motif where id_ligne= :id_ligne";
         $params = array(
-            ":id_ligne" => $pays->get_id_ligne(),
-            ":dat_ligne" => $ligne->get_dat_ligne(),
+            ":id_ligne" => $ligne->get_id_ligne(),
             ":lib_trajet" => $ligne->get_lib_trajet(),
             ":nb_km" => $ligne->get_nb_km(),
-            ":mt_km" => $ligne->get_mt_km(),
             ":mt_peage" => $ligne->get_mt_peage(),
             ":mt_repas" => $ligne->get_mt_repas(),
             ":mt_hebergement" => $ligne->get_mt_hebergement(),
-            ":mt_total" => $ligne->get_mt_total(),
-            ":id_motif" => $ligne->get_id_motif(),
-            ":id_note" => $ligne->get_id_note()
+            ":id_motif" => $ligne->get_id_motif()
         );
         try {
-            $sth = $this->executer($sql, $params); // On passe par la méthode de la classe mère
-            $nb = $sth->rowcount();
+            $sth = $this->pdo->prepare($sql); // On passe par la méthode de la classe mère
+            $sth->execute($params);
+            $nb = $sth->rowCount();
         } catch (PDOException $e) {
             die("Erreur lors de la requête SQL : " . $e->getMessage());
         }

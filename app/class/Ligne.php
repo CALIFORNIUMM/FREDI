@@ -24,7 +24,7 @@
             return $this->dat_ligne;
         }
 
-        public function lib_trajet(){
+        public function get_lib_trajet(){
             return $this->lib_trajet;
         }
 

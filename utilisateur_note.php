@@ -34,7 +34,7 @@ $motifdao = New MotifDAO();
             echo '<tr>';
             echo '<td>'.$ligne->get_id_ligne().'</td>';
             echo '<td>'.date('d-m-Y', strtotime($ligne->get_dat_ligne())).'</td>';
-            echo '<td>'.$ligne->lib_trajet().'</td>';
+            echo '<td>'.$ligne->get_lib_trajet().'</td>';
             echo '<td>'.$motifdao->find($ligne->get_id_motif())->get_lib_motif().'</td>';
             echo '<td>'.$ligne->get_nb_km().'</td>';
             echo '<td>'.$ligne->get_mt_km().'</td>';

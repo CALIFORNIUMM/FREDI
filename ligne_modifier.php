@@ -7,6 +7,7 @@
 
   //Instanciation des DAO
   $ligneDAO = new LigneDAO();
+  $motifDAO = new MotifDAO();
 
   //Récupère l'ID dans l'URL
   $id_ligne = isset($_GET['id_ligne']) ? $_GET['id_ligne'] : null;
@@ -53,39 +54,41 @@
 <h1>User</h1>
 <h2>Modifier Ligne</h2>
 
-<form action="#" method="post">
-  <p>
-    <input type="text" name="dat_ligne" id="dat_ligne" value="<?php echo $ligne->get_dat_ligne(); ?>">
-  </p>
-  <p>
-    <input type="text" name="lib_trajet" id="lib_trajet" value="<?php echo $ligne->get_lib_trajet(); ?>">
-  </p>
-  <p>
-    <input type="text" name="nb_km" id="nb_km" value="<?php echo $ligne->get_nb_km(); ?>">
-  </p>
-  <p>
-    <input type="text" name="mt_km" id="mt_km" value="<?php echo $ligne->get_mt_km(); ?>">
-  </p>
-  <p>
-    <input type="text" name="mt_peage" id="mt_peage" value="<?php echo $ligne->get_mt_peage(); ?>">
-  </p>
-  <p>
-    <input type="text" name="mt_repas" id="mt_repas" value="<?php echo $ligne->get_mt_repas(); ?>">
-  </p>
-  <p>
-    <input type="text" name="mt_hebergement" id="mt_hebergement" value="<?php echo $ligne->get_mt_hebergement(); ?>">
-  </p>
-  <p>
-    <input type="text" name="mt_total" id="mt_total" value="<?php echo $ligne->get_mt_total(); ?>">
-  </p>
-  <p>
-    <input type="text" name="id_motif" id="id_motif" value="<?php echo $ligne->get_id_motif(); ?>">
-  </p>
-  <div>
-  <input name="id_ligne" id="id_ligne" type="hidden" value="<?php echo $ligne->get_id_ligne(); ?>">
-  </div>
-  <p><input type="submit" value="Modifier" name="submit"></p>
-  <p><input type="reset" value="Réinitialiser" name="reset"></p>
+<form action="<?= $_SERVER['PHP_SELF'] ?>?id_ligne=<?= $ligne->get_id_ligne() ?>" method="post">
+
+  <label for="lib_trajet">Nom du trajet</label><br>
+  <input type="text" name="lib_trajet" id="lib_trajet" value="<?= $ligne->get_lib_trajet() ?>"><br>
+
+  <label for="nb_km">Nombre de kilomètre</label><br>
+  <input type="text" name="nb_km" id="nb_km" value="<?= $ligne->get_nb_km() ?>"><br>
+
+  <label for="mt_peage">Montant péage</label><br>
+  <input type="text" name="mt_peage" id="mt_peage" value="<?= $ligne->get_mt_peage() ?>"><br>
+
+  <label for="mt_repas">Montant repas</label><br>
+  <input type="text" name="mt_repas" id="mt_repas" value="<?= $ligne->get_mt_repas() ?>"><br>
+
+  <label for="mt_hebergement">Montant hebergement</label><br>
+  <input type="text" name="mt_hebergement" id="mt_hebergement" value="<?= $ligne->get_mt_hebergement() ?>"><br>
+  
+  <label for="id_motif">Motif</label><br>
+    <select name="id_motif" id="id_motif">
+        <option value=""selected>--Please choose an option--</option>
+        <?php
+            foreach($motifDAO->findAll() as $motif){
+                $selectede = NULL;
+                if($motif->get_id_motif() == $ligne->get_id_motif()){
+                    $selectede = "selected";
+                }else{
+                    $selectede = NULL;
+                }
+                echo "<option value=\"".$motif->get_id_motif()."\" $selectede>".$motif->get_lib_motif()."</option>";
+            }
+        ?>
+    </select><br><br>
+
+  <input type="submit" value="Modifier" name="submit"> &nbsp;
+  <input type="reset" value="Réinitialiser" name="reset">
 </form>
 
 <?php include('footer.php'); ?>
