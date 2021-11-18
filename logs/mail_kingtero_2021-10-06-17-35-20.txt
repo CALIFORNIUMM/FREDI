@@ -1,6 +1,0 @@
-Date : 2021-10-06 17:35:20.044806
-To : agust.quintero@gmail.com
-Subject : Rénitialisation de votre mot de passe !
-Message : Vous avez demandez à que votre mot de passe soit rénitialisé car vous l'avez certainement oublié. Voici votre nouveau mot de passe : 
-Pseudo : kingtero
-Mot de passe : 9a6c8c0fd113e68b

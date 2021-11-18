@@ -2,45 +2,51 @@
   $title = "Modifier ligne";
   include('header.php');
 
-  //Charger une ligne
-  $id_ligne = isset($_GET['id_ligne']) ? $_GET['id_ligne'] : '';
-  $dat_ligne=isset($_POST['dat_ligne']) ? $_POST['dat_ligne'] :  "";
-  $lib_trajet=isset($_POST['lib_trajet']) ? $_POST['lib_trajet'] :  "";
-  $nb_km=isset($_POST['nb_km']) ? $_POST['nb_km'] :  "";
-  $mt_km=isset($_POST['mt_km']) ? $_POST['mt_km'] :  "";
-  $mt_peage=isset($_POST['mt_peage']) ? $_POST['mt_peage'] :  "";
-  $mt_repas=isset($_POST['mt_repas']) ? $_POST['mt_repas'] :  "";
-  $mt_hebergement=isset($_POST['mt_hebergement']) ? $_POST['mt_hebergement'] :  "";
-  $mt_total=isset($_POST['mt_total']) ? $_POST['mt_total'] :  "";
-  $id_motif=isset($_POST['id_motif']) ? $_POST['id_motif'] :  "";
-  $submit=isset($_POST['submit']);
+  //Modifier une ligne
+  require_once "init.php";
+
+  //Instanciation des DAO
+  $ligneDAO = new LigneDAO();
+
+  //Récupère l'ID dans l'URL
+  $id_ligne = isset($_GET['id_ligne']) ? $_GET['id_ligne'] : null;
+
+  // Lecture du formulaire
+  $submit = isset($_POST['submit']);
   if ($submit) {
-    $id_ligne = $_POST['id_ligne'];
-    $sql = "UPDATE ligne SET dat_ligne=:dat_ligne, lib_trajet=:lib_trajet, nb_km=:nb_km, mt_km=:mt_km, mt_peage=:mt_peage,
-    mt_repas=:mt_repas, mt_hebergement=:mt_hebergement, mt_total=:mt_total, id_motif=:id_motif WHERE id_ligne=:id_ligne";
-    try {
-      $sth = connexion()->prepare($sql);
-      $sth->execute(array(
-        ':dat_ligne' => $dat_ligne,
-        ':lib_trajet' => $lib_trajet,
-        ':nb_km' => $nb_km,
-        ':mt_km' => $mt_km,
-        ':mt_peage' => $mt_peage,
-        ':mt_repas' => $mt_repas,
-        ':mt_hebergement' => $mt_hebergement,
-        ':mt_total' => $mt_total,
-        ':id_motif' => $id_motif
-      ));
-      $rows = $sth->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $ex) {
-      die("Erreur lors de la requête SQL : " . $ex->getMessage());
-    }
-    echo "<p>".$sth->rowcount()." ligne(s) modifié(s)</p>";
-    
-    header("Location: profil.php");
-}else {
-  $ligne = new LigneDAO();
-  $ligne = $ligne->find($id_ligne);
+    //Formulaire soumi
+    //Récupère les données du formulaire
+    $dat_ligne=isset($_POST['dat_ligne']) ? $_POST['dat_ligne'] :  "";
+    $lib_trajet=isset($_POST['lib_trajet']) ? $_POST['lib_trajet'] :  "";
+    $nb_km=isset($_POST['nb_km']) ? $_POST['nb_km'] :  "";
+    $mt_km=isset($_POST['mt_km']) ? $_POST['mt_km'] :  "";
+    $mt_peage=isset($_POST['mt_peage']) ? $_POST['mt_peage'] :  "";
+    $mt_repas=isset($_POST['mt_repas']) ? $_POST['mt_repas'] :  "";
+    $mt_hebergement=isset($_POST['mt_hebergement']) ? $_POST['mt_hebergement'] :  "";
+    $mt_total=isset($_POST['mt_total']) ? $_POST['mt_total'] :  "";
+    $id_motif=isset($_POST['id_motif']) ? $_POST['id_motif'] :  "";
+    $id_note=isset($_POST['id_note']) ? $_POST['id_note'] :  "";
+    //Créer un objet ligne à l'image des données
+    $ligne = new Ligne(array(
+      'id_ligne'=>$id_ligne,
+      'dat_ligne'=>$dat_ligne,
+      'lib_trajet'=>$lib_trajet,
+      'nb_km'=>$nb_km,
+      'mt_km'=>$mt_km,
+      'mt_peage'=>$mt_peage,
+      'mt_repas'=>$mt_repas,
+      'mt_hebergement'=>$mt_hebergement,
+      'mt_total'=>$mt_total,
+      'id_motif'=>$id_motif,
+      'id_note'=>$id_note
+    ));
+      // Modifie l'enregistrement dans la BD
+      $ligneDAO->update($ligne);
+      // Redirection vers la liste des lignes
+      header("Location: utilisateur_note.php");
+} else {
+  // Formulaire non soumi : lit l'objet métier
+  $ligne = $ligneDAO->find($id_ligne);
 }
 
 ?>
