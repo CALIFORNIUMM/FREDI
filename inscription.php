@@ -27,6 +27,7 @@
     $messages = New Messages("error");
     $flash = New Flash();
 
+    //Vérifie l'inscription
     if(isset($_POST['submit'])){
         if(empty(trim($pseudo))){
             $messages->add_messages("Pseudo vide");
@@ -112,6 +113,7 @@
             $messages->add_messages("Le champ email doit contenir une adresse mail");
         }
     
+        //Si aucun message Inscription réussie et insertion dans BD
         if($messages->is_empty() == TRUE){
             $hash=password_hash($mdp, PASSWORD_BCRYPT); //hachage du mot de passe
             $values = array(
