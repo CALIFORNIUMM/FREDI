@@ -82,7 +82,7 @@
         }
 
         if($users->isExistMail($mail) == TRUE){
-            $messages->add_messages("L'email éxiste déjà");
+            $messages->add_messages("L'email existe déjà");
         }
 
         if(mb_strlen($mdp) < 8){
@@ -101,8 +101,10 @@
             $messages->add_messages("Le mot de passe doit contenir au moins un chiffre");
         }
 
-        if(!preg_match("#[\W]#", $mdp)){
-            $messages->add_messages("Le mot de passe doit contenir au moins uncaractère spécial");
+        $pattern = '/[\'\/~`\!@#$%\^&\*\(\)_\-\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/';
+        if(!preg_match($pattern, $mdp)){
+            $messages->add_messages("Le mot de passe doit contenir au moins un caractère spécial");
+            $messages->add_messages("Utilisez l'un de ses caractères spéciaux dans votre mot de passe : ^'£$%^&*()}{@:'#~?><>,;@|\-=-_+-`");
         }
             
         if(!($mdp === $mdp2)){

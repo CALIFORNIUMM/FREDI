@@ -8,7 +8,9 @@ $notes = $dao->findAll();
 ?>
   <h1>Bienvenu(e) <?= $session->get_pseudo() ?></h1>
   <h2>Page de mon profil</h2>
-  <p>Mon rôle : <?= $session->get_role() ?></p>
+  <p>Mon rôle : <?php if($session->get_role() == 0){
+      echo "Utilisateur";
+  }else ?></p>
   <h2>Liste des Notes</h2>
 
   <?php

@@ -1,4 +1,3 @@
-AuthType Basic
-AuthName "Accès protégé"
-AuthUserFile .htpasswd
-require valid-user
+Options -Indexes
+Order Allow,Deny 
+Deny from all
