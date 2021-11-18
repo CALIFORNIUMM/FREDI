@@ -10,6 +10,7 @@ BEGIN
     SET NEW.mt_km = NEW.nb_km * mt_periode;
 
     SET NEW.mt_total = NEW.mt_repas + NEW.mt_peage + NEW.mt_hebergement+NEW.mt_km;
+    SET NEW.dat_ligne = CURRENT_DATE();
     
 END|
 
@@ -23,6 +24,7 @@ BEGIN
     SET NEW.mt_km = NEW.nb_km * mt_periode;
 
     SET NEW.mt_total = NEW.mt_repas + NEW.mt_peage + NEW.mt_hebergement+NEW.mt_km;
+    SET NEW.dat_ligne = CURRENT_DATE();
 END|
 
 DELIMITER |

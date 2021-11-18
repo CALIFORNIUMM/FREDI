@@ -6,13 +6,13 @@ include('header.php');
 $notedao = New NoteDAO();
 $note = $notedao->findByUser($session->get_id_utilisateur());
 $periode = New PeriodeDAO();
-$periode = $periode->findLibEnCours();
+$motifdao = New MotifDAO();
 
 ?>
     <h1>Ma note de frais</h1>
 
     <h3>Mes frais en cours <a href="">Ajouter</a></h3> 
-    <p><b>Periode</b> n° <?= $periode->get_lib_periode() ?> - <?= $periode->get_lib_periode()+1 ?></p>
+    <p><b>Periode</b> n° <?= $periode->findLibEnCours()->get_lib_periode() ?> - <?= $periode->findLibEnCours()->get_lib_periode()+1 ?></p>
     <p>Montant total en cours : <b><?= $note->get_mt_total() ?></b> €</p>
     
     <table>
@@ -33,9 +33,9 @@ $periode = $periode->findLibEnCours();
         foreach($note->get_lignes() as $ligne){
             echo '<tr>';
             echo '<td>'.$ligne->get_id_ligne().'</td>';
-            echo '<td>'.$ligne->get_dat_ligne().'</td>';
+            echo '<td>'.date('d-m-Y', strtotime($ligne->get_dat_ligne())).'</td>';
             echo '<td>'.$ligne->lib_trajet().'</td>';
-            echo '<td>'.$ligne->get_id_motif().'</td>';
+            echo '<td>'.$motifdao->find($ligne->get_id_motif())->get_lib_motif().'</td>';
             echo '<td>'.$ligne->get_nb_km().'</td>';
             echo '<td>'.$ligne->get_mt_km().'</td>';
             echo '<td>'.$ligne->get_mt_peage().'</td>';
