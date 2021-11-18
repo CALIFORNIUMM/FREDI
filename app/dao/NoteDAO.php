@@ -1,5 +1,5 @@
 <?php
-    class NoteDAO extends dao 
+    class NoteDAO extends dao
     {
         function __construct()
         {
@@ -70,5 +70,30 @@
             // Retourne l'objet métier
             return $note;
         } // function findByUser()
+
+        function findPeriode(){
+          $sql = "SELECT * FROM note, periode, utilisateur WHERE periode.id_periode = note.id_periode AND note.id_utilisateur = utilisateur.id_utilisateur AND periode.est_active = 1";
+          try {
+            $sth = $this->pdo->prepare($sql);
+            $sth->execute();
+            $rows = $sth->fetch(PDO::FETCH_ASSOC);
+          } catch (PDOException $e){
+            throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
+          }
+          $notes = array();
+          $lignesDAO = new LigneDAO();
+          foreach ($rows as $row) {
+              $lignes = $lignesDAO->findAllByIdNote($row["id_note"]);
+              $row['lignes']=$lignes;
+              $notes[] = new Note($row);
+          $usersDAO = new UserDAO();
+          foreach ($rows as $row) {
+            $users = $usersDAO->find($row["id_utilisateur"]);
+            $row['utilisateur']=$users;
+            $notes[] = new Notes($row);
+          }
+          }
+          return $notes;
+        }
     }
 ?>
