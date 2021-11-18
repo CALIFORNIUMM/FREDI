@@ -1,2 +1,7 @@
 RewriteEngine on
 DirectoryIndex index.php
+Options -Indexes
+<files README.md>
+Order Allow,Deny 
+Deny from all 
+</files>
