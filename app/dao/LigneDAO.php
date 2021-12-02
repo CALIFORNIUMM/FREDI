@@ -83,7 +83,7 @@
           ":id_note" => $ligne->get_id_note()
         );
         try {
-            $sth = $this->executer($sql, $params); // On passe par la méthode de la classe mère
+            $sth = $this->execute($sql, $params); // On passe par la méthode de la classe mère
             $nb = $sth->rowcount();
         } catch (PDOException $e) {
             die("Erreur lors de la requête SQL : " . $e->getMessage());

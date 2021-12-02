@@ -16,6 +16,8 @@ $notes = $dao->findAllByUser($session->get_id_utilisateur());
 
   <?php
 
+echo '<a href="ligne_ajouter.php">Ajouter</a> une ligne';
+
     foreach($notes as $note) {
     echo '<br><br><br><br><br>';
     echo '<table>';
@@ -70,6 +72,8 @@ $notes = $dao->findAllByUser($session->get_id_utilisateur());
     echo '</tr>';
     echo '</table>';
   }
+
+  echo '<p>Note au format [<a href="note_pdf.php?id='.$note->get_id_note().'">PDF</a>]</p>';
   
 
     ?>
