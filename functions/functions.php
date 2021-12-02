@@ -45,4 +45,6 @@ $date2 = $datetime->format("Y-m-d");
 return $date2;
 }
 
+require_once "fpdf/fpdf.php";
+
 ?>

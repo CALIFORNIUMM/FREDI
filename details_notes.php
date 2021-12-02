@@ -3,23 +3,17 @@ $title = "Profil";
 include('header.php');
 
 $lignes=array();
+$id_user = isset($_GET['id_utilisateur']) ? $_GET['id_utilisateur'] : null;
 $dao = new NoteDAO();
-$notes = $dao->findAllByUser($session->get_id_utilisateur());
+$notes = $dao->findAllByUser($id_user);
 
 $motifdao = New MotifDAO();
 $motifdao=$motifdao->findAll();
 
 ?>
-  <h1>Bienvenu(e) <?= $session->get_pseudo() ?></h1>
-  <h2>Page de mon profil</h2>
-  <p>Mon rôle : <?php if($session->get_role() == 0){
-      echo "Utilisateur";
-  }else ?></p>
-  <h2>Liste des Notes</h2>
+
 
   <?php
-
-echo '<a href="ligne_ajouter.php">Ajouter</a> une ligne';
 
     foreach($notes as $note) {
     echo '<br><br><br>';
@@ -41,7 +35,7 @@ echo '<a href="ligne_ajouter.php">Ajouter</a> une ligne';
         echo '<td>' . $note->get_id_periode() . '</td>';
     echo '</tr>';
     echo '</table>';
-    
+
     echo '<table>';
     echo '<tr>';
         echo '<th>ID Ligne</th>';
@@ -75,16 +69,12 @@ echo '<a href="ligne_ajouter.php">Ajouter</a> une ligne';
         echo '<td>' . $ligne->get_mt_hebergement() . '</td>';
         echo '<td>' . $ligne->get_mt_total() . '</td>';
         echo '<td>' . $m . '</td>';
-        echo '<td><a href="ligne_modifier.php?id_ligne='.$ligne->get_id_ligne().'">Modifier</a></td>';
-        echo '<td><a href="ligne_supprimer.php?id_ligne='.$ligne->get_id_ligne().'">Supprimer</a></td>';
     }
     echo '</tr>';
     echo '</table>';
   }
 
-  echo '<p>Note au format [<a href="note_pdf.php?id='.$note->get_id_note().'">PDF</a>]</p>';
-  
-
     ?>
+      <p><a href="liste_note_controleur.php">Retour</a> liste des controleur</p>
 
 <?php include('footer.php'); ?>
