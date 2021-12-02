@@ -30,8 +30,8 @@
                     if($session->get_role() == 1){
                         echo '<li><a href="controleur.php">CONTROLEUR</a></li>';
                     }
-                    echo '<li><a href="profil.php">MON COMPTE</a></li>';
-                    echo '<li><a href="deconnexion.php">DECONNEXION</a></li>';
+                    echo '<li class="ligne right"><a href="profil.php">MON COMPTE</a></li>';
+                    echo '<li class="ligne right"><a href="deconnexion.php">DECONNEXION</a></li>';
                 }else{
                     echo '<li class="ligne right"><a href="inscription.php">S\'INSCRIRE</a></li>';
                     echo '<li class="ligne right"><a href="connexion.php">SE CONNECTER</a></li>';
