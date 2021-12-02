@@ -69,7 +69,7 @@ SELECT COUNT(*)  FROM note, ligne, periode WHERE ligne.id_note = note.id_note AN
     AND ligne.id_note = 2;
 
 
-    DELIMITER |
+DELIMITER |
 CREATE OR REPLACE TRIGGER after_update_ligne AFTER UPDATE
 ON ligne FOR EACH ROW
 BEGIN

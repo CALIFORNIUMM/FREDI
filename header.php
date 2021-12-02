@@ -16,42 +16,30 @@
 </head>
 
 <body>
-    <div class="banner">
-        <div class="banner-inner">
-            <h1>FREDI - <?= $title ?></h1>
-        </div>
-    </div>
+    
+    <div class="navbar">
+        <ul>
+            <li class="ligne left"><h1><a href="index.php">Accueil</a></h1></li>
+            <li class="ligne center"><h1>FREDI - <?= $title ?></h1></li>
 
-    <header id="header">
-        <div id="header-inner">
-            <div id="logo">
-                <h1><a href="index.php">Accueil</a></h1>
-            </div>
-
-            <div id="top-nav">
-                <ul>
-                <?php 
-                    if(isset($session)){
-                        if($session->get_role() == 2){
-                            echo '<li><a href="admin.php">ADMIN</a></li>';
-                        }
-                        if($session->get_role() == 1){
-                            echo '<li><a href="controleur.php">CONTROLEUR</a></li>';
-                        }
-                        echo '<li><a href="profil.php">MON COMPTE</a></li>';
-                        echo '<li><a href="deconnexion.php">DECONNEXION</a></li>';
-                    }else{
-                        echo '<li><a href="inscription.php">S\'INSCRIRE</a></li>';
-                        echo '<li><a href="connexion.php">SE CONNECTER</a></li>';
+            <?php 
+                if(isset($session)){
+                    if($session->get_role() == 2){
+                        echo '<li><a href="admin.php">ADMIN</a></li>';
                     }
-                ?>
-                    
-                    
-                </ul>
-            </div>
-            <div class="bas-nav"></div>
-        </div>
-    </header>
+                    if($session->get_role() == 1){
+                        echo '<li><a href="controleur.php">CONTROLEUR</a></li>';
+                    }
+                    echo '<li><a href="profil.php">MON COMPTE</a></li>';
+                    echo '<li><a href="deconnexion.php">DECONNEXION</a></li>';
+                }else{
+                    echo '<li class="ligne right"><a href="inscription.php">S\'INSCRIRE</a></li>';
+                    echo '<li class="ligne right"><a href="connexion.php">SE CONNECTER</a></li>';
+                }
+            ?>
+                
+        </ul>
+    </div>
 
     <div id="content">
 <?php 

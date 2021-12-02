@@ -71,17 +71,14 @@
     */
     public function insert(ligne $ligne)
     {
-        $sql = "INSERT INTO ligne(dat_ligne, lib_trajet, nb_km, mt_km, mt_peage, mt_repas, mt_hebergement, mt_total, id_motif, id_note) 
-        values (:dat_ligne, :lib_trajet, :nb_km, :mt_km, :mt_peage, :mt_repas, :mt_hebergement, :mt_total, :id_motif, :id_note)";
+        $sql = "INSERT INTO ligne(lib_trajet, nb_km, mt_peage, mt_repas, mt_hebergement, id_motif, id_note) 
+        values (:lib_trajet, :nb_km, :mt_peage, :mt_repas, :mt_hebergement, :id_motif, :id_note)";
         $params = array(
-          ":dat_ligne" => $ligne->get_dat_ligne(),
           ":lib_trajet" => $ligne->get_lib_trajet(),
           ":nb_km" => $ligne->get_nb_km(),
-          ":mt_km" => $ligne->get_mt_km(),
           ":mt_peage" => $ligne->get_mt_peage(),
           ":mt_repas" => $ligne->get_mt_repas(),
           ":mt_hebergement" => $ligne->get_mt_hebergement(),
-          ":mt_total" => $ligne->get_mt_total(),
           ":id_motif" => $ligne->get_id_motif(),
           ":id_note" => $ligne->get_id_note()
         );

@@ -17,29 +17,21 @@
   if ($submit) {
     //Formulaire soumi
     //Récupère les données du formulaire
-    $dat_ligne=isset($_POST['dat_ligne']) ? $_POST['dat_ligne'] :  "";
     $lib_trajet=isset($_POST['lib_trajet']) ? $_POST['lib_trajet'] :  "";
     $nb_km=isset($_POST['nb_km']) ? $_POST['nb_km'] :  "";
-    $mt_km=isset($_POST['mt_km']) ? $_POST['mt_km'] :  "";
     $mt_peage=isset($_POST['mt_peage']) ? $_POST['mt_peage'] :  "";
     $mt_repas=isset($_POST['mt_repas']) ? $_POST['mt_repas'] :  "";
     $mt_hebergement=isset($_POST['mt_hebergement']) ? $_POST['mt_hebergement'] :  "";
-    $mt_total=isset($_POST['mt_total']) ? $_POST['mt_total'] :  "";
     $id_motif=isset($_POST['id_motif']) ? $_POST['id_motif'] :  "";
-    $id_note=isset($_POST['id_note']) ? $_POST['id_note'] :  "";
     //Créer un objet ligne à l'image des données
     $ligne = new Ligne(array(
       'id_ligne'=>$id_ligne,
-      'dat_ligne'=>$dat_ligne,
       'lib_trajet'=>$lib_trajet,
       'nb_km'=>$nb_km,
-      'mt_km'=>$mt_km,
       'mt_peage'=>$mt_peage,
       'mt_repas'=>$mt_repas,
       'mt_hebergement'=>$mt_hebergement,
-      'mt_total'=>$mt_total,
-      'id_motif'=>$id_motif,
-      'id_note'=>$id_note
+      'id_motif'=>$id_motif
     ));
       // Modifie l'enregistrement dans la BD
       $ligneDAO->update($ligne);

@@ -213,7 +213,7 @@
                 }else{
                     $selectede = NULL;
                 }
-                echo "<option value=\"".$clube->get_id_club()."\" $selectede>".$clube->get_lib_club()."</option>";
+                echo "<option value=\"".$clube->get_id_club()."\" $selected>".$clube->get_lib_club()."</option>";
             }
         ?>
     </select><br><br>
