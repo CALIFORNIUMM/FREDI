@@ -22,6 +22,7 @@ $notes = $notes->findPeriode();
         <th>ID Utilisateur</th>
         <th>Pseudo</th>
         <th>ID Note</th>
+        <th>Détail de la note</th>
       </tr>
 
       <?php
@@ -30,6 +31,7 @@ $notes = $notes->findPeriode();
         echo '<td>' . $note['id_utilisateur']. '</td>';
         echo '<td>' . $note['pseudo']. '</td>';
         echo '<td>' . $note['id_note']. '</td>';
+        echo '<td><a href="details_notes.php?id_utilisateur='. $note['id_utilisateur'].'">Détails</a></td>';
         echo "</tr>";
       } ?>
     </table>
