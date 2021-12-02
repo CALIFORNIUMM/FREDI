@@ -125,13 +125,14 @@
     */
     public function delete($id_ligne)
     {
-        $sql = "delete from ligne where id_ligne= :id_ligne";
+        $sql = "DELETE FROM ligne WHERE id_ligne= :id_ligne";
         $params = array(
         ":id_ligne" => $id_ligne
         );
         try {
-            $sth = $this->executer($sql, $params); // On passe par la méthode de la classe mère
-            $nb = $sth->rowcount();
+            $sth = $this->pdo->prepare($sql);
+            $sth->execute($params); // On passe par la méthode de la classe mère
+            $nb = $sth->rowCount();
         } catch (PDOException $e) {
             die("Erreur lors de la requête SQL : " . $e->getMessage());
         }

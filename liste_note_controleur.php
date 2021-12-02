@@ -7,6 +7,7 @@ include('header.php');
 $notes = new NoteDAO();
 $notes = $notes->findPeriode();
 
+
 ?>
   <h1>Controleur</h1>
   <ul>
@@ -18,15 +19,19 @@ $notes = $notes->findPeriode();
   ?>
     <table>
       <tr>
-        <th>id note</th>
-        <th>utilisateur</th>
+        <th>ID Utilisateur</th>
+        <th>Pseudo</th>
+        <th>ID Note</th>
+        <th>Détail de la note</th>
       </tr>
 
       <?php
       foreach ($notes as $note) {
         echo '<tr>';
-        echo '<td>' . $note->get_id_note(). '</td>';
-        echo '<td>' . $note->get_pseudo(). '</td>';
+        echo '<td>' . $note['id_utilisateur']. '</td>';
+        echo '<td>' . $note['pseudo']. '</td>';
+        echo '<td>' . $note['id_note']. '</td>';
+        echo '<td><a href="details_notes.php?id_utilisateur='. $note['id_utilisateur'].'">Détails</a></td>';
         echo "</tr>";
       } ?>
     </table>
