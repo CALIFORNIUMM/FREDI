@@ -4,7 +4,8 @@ include('header.php');
 
 $lignes=array();
 $dao = new NoteDAO();
-$notes = $dao->findAll();
+$notes = $dao->findAllByUser($session->get_id_utilisateur());
+
 ?>
   <h1>Bienvenu(e) <?= $session->get_pseudo() ?></h1>
   <h2>Page de mon profil</h2>
@@ -14,7 +15,7 @@ $notes = $dao->findAll();
   <h2>Liste des Notes</h2>
 
   <?php
-    
+
     foreach($notes as $note) {
     echo '<br><br><br><br><br>';
     echo '<table>';
@@ -35,7 +36,7 @@ $notes = $dao->findAll();
         echo '<td>' . $note->get_id_periode() . '</td>';
     echo '</tr>';
     echo '</table>';
-    foreach($note->get_lignes() as $ligne) {
+    
     echo '<table>';
     echo '<tr>';
         echo '<th>ID Ligne</th>';
@@ -50,11 +51,12 @@ $notes = $dao->findAll();
         echo '<th>ID Motif</th>';
         echo '<th>Modifier</th>';
         echo '<th>Supprimer</th>';
-    echo '</tr>';
+    echo '</tr><br>';
+    foreach($note->get_lignes() as $ligne) {
     echo '<tr>';
         echo '<td>' . $ligne->get_id_ligne() . '</td>';
         echo '<td>' . $ligne->get_dat_ligne() . '</td>';
-        echo '<td>' . $ligne->lib_trajet() . '</td>';
+        echo '<td>' . $ligne->get_lib_trajet() . '</td>';
         echo '<td>' . $ligne->get_nb_km() . '</td>';
         echo '<td>' . $ligne->get_mt_km() . '</td>';
         echo '<td>' . $ligne->get_mt_peage() . '</td>';

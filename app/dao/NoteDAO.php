@@ -71,6 +71,27 @@
             return $note;
         } // function findByUser()
 
+        function findAllByUser($id_user) {
+            $sql = "SELECT * FROM note, periode WHERE note.id_periode = periode.id_periode AND periode.est_active = 1 AND note.id_utilisateur = :id_utilisateur";
+            try {
+                $sth = $this->pdo->prepare($sql);
+                $sth->execute(array(":id_utilisateur" => $id_user));
+                $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
+            }
+            $notes = array();
+            $ligneDAO = new LigneDAO();
+            foreach ($rows as $row) {
+                $note = new Note($row);
+                $lignes = $ligneDAO->findAllByIdNote($note->get_id_note());
+                $note->set_lignes($lignes);
+                $notes[]=$note;
+            }
+            // Retourne l'objet métier
+            return $notes;
+        } // function findByUser()
+
         function findPeriode(){
           $sql = "SELECT * FROM note, periode, utilisateur WHERE periode.id_periode = note.id_periode AND note.id_utilisateur = utilisateur.id_utilisateur AND periode.est_active = 1";
           try {
