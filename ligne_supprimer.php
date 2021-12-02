@@ -4,7 +4,8 @@ include('header.php');
 
 //Supprimer une ligne
 require_once "init.php";
-
+//dao messages flash
+$flash = New Flash();
 // Instanciation des DAO
 $ligneDAO = new LigneDAO();
 
@@ -17,6 +18,8 @@ if ($submit) {
     // Formulaire soumi
     // Supprime l'enregistrement dans la BD
     $ligneDAO->delete($id_ligne);
+    //message flash
+    $flash->set_type('succes')->add_messages('Vous avez bien supprimé la ligne de frais n°'.$id_ligne)->put();
     // Redirection vers la liste des pays
     header('Location: utilisateur_note.php');
 } else {

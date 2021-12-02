@@ -6,6 +6,9 @@ $lignes=array();
 $dao = new NoteDAO();
 $notes = $dao->findAllByUser($session->get_id_utilisateur());
 
+$motifdao = New MotifDAO();
+$motifdao=$motifdao->findAll();
+
 ?>
   <h1>Bienvenu(e) <?= $session->get_pseudo() ?></h1>
   <h2>Page de mon profil</h2>
@@ -17,7 +20,7 @@ $notes = $dao->findAllByUser($session->get_id_utilisateur());
   <?php
 
     foreach($notes as $note) {
-    echo '<br><br><br><br><br>';
+    echo '<br><br><br>';
     echo '<table>';
     echo '<tr>';
         echo '<th>ID Note</th>';
@@ -48,11 +51,17 @@ $notes = $dao->findAllByUser($session->get_id_utilisateur());
         echo '<th>Montant Repas</th>';
         echo '<th>Montant Hébergement</th>';
         echo '<th>Montant Total</th>';
-        echo '<th>ID Motif</th>';
+        echo '<th>Motif</th>';
         echo '<th>Modifier</th>';
         echo '<th>Supprimer</th>';
     echo '</tr><br>';
     foreach($note->get_lignes() as $ligne) {
+        $m=NULL;
+        foreach($motifdao as $motif){
+            if($ligne->get_id_motif() == $motif->get_id_motif()){
+                $m = $motif->get_lib_motif();
+            }
+        }
     echo '<tr>';
         echo '<td>' . $ligne->get_id_ligne() . '</td>';
         echo '<td>' . $ligne->get_dat_ligne() . '</td>';
@@ -63,7 +72,7 @@ $notes = $dao->findAllByUser($session->get_id_utilisateur());
         echo '<td>' . $ligne->get_mt_repas() . '</td>';
         echo '<td>' . $ligne->get_mt_hebergement() . '</td>';
         echo '<td>' . $ligne->get_mt_total() . '</td>';
-        echo '<td>' . $ligne->get_id_motif() . '</td>';
+        echo '<td>' . $m . '</td>';
         echo '<td><a href="ligne_modifier.php?id_ligne='.$ligne->get_id_ligne().'">Modifier</a></td>';
         echo '<td><a href="ligne_supprimer.php?id_ligne='.$ligne->get_id_ligne().'">Supprimer</a></td>';
     }
