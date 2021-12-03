@@ -6,9 +6,10 @@
   require_once "init.php";
 
   //Instanciation des DAO
-  $ligneDAO = new LigneDAO();
-  $motifDAO = new MotifDAO();
-
+  $lignes = new LigneDAO();
+  $lignes = $lignes->findAll();
+  $motifs = new MotifDAO();
+  $motifs = $motifs->findAll();
   //Récupère l'ID dans l'URL
   $id_ligne = isset($_GET['id_ligne']) ? $_GET['id_ligne'] : null;
 
@@ -33,11 +34,12 @@
       'id_motif'=>$id_motif
     ));
       // Ajouter l'enregistrement dans la BD
-      $ligneDAO->insert($ligne);
+      $lignes->insert($ligne);
       // Redirection vers la liste des lignes
       header("Location: profil.php");
-} else {
+  } else {
   // Formulaire non soumi : lit l'objet métier
+  $ligne = new Ligne();
 }
 
 ?>
@@ -64,12 +66,12 @@
   <label for="id_motif">Motif</label><br>
     <select name="id_motif" id="id_motif">
         <option value=""selected>--Please choose an option--</option>
-        <?php
-            foreach($motifDAO->findAll() as $motif){
-                echo '<option value="'.$motif->get_lib_motif().'"></option>';
+          <?php
+            foreach ($motifs as $motif) {
+                echo '<option value='.$motif->get_id_motif().'>'.$motif->get_lib_motif().'</option>';
             }
-        ?>
-    </select><br><br>
+         ?>
+          </select><br><br>
 
   <input type="submit" value="Ajouter" name="submit"> &nbsp;
   <input type="reset" value="Réinitialiser" name="reset">

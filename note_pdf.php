@@ -4,65 +4,142 @@
  */
 require_once "init.php";
 
-if(isset($_SESSION['user'])){
-  $session = $_SESSION['user'];
-}
-
-$lignes=array();
-$dao = new NoteDAO();
-$notes = $dao->findAllByUser($session->get_id_utilisateur());
+$id = isset($_GET['id']) ? $_GET['id'] : null;
+//Renvoie l'utilisateur
+$userDAO = new UserDAO;
+$user = $userDAO->find($id);
+$adherentDAO = new AdherentDAO;
+$adherent = $adherentDAO->find($id);
+$clubDAO = new ClubDAO;
+$club = $clubDAO->find($adherent->get_id_club());
+$ligneDAO = new LigneDAO;
+$periodeDAO = new PeriodeDAO;
+$periode = $periodeDAO->findLibEnCours();
+$lignes = array();
+//Renvoie les lignes de la note active
+$lignes = $ligneDAO->findAllByIdNote($id, $periode->get_lib_periode());
+$motifDAO = new MotifDAO;
+$motif = $motifDAO->findAll();
 
 // Instanciation de l'objet dérivé
 $pdf = new Mon_pdf();
 
+// Créé la constante pour le symbole ascii euro (sinon probleme d'affichage)
+$date = date('d/m/Y');
+define('EURO'," ".utf8_encode(chr(128))); 
+
 // Metadonnées
 $pdf->SetTitle('Note', true);
-$pdf->SetAuthor('', true);
+$pdf->SetAuthor('FREDI', true);
 $pdf->SetSubject('Note', true);
 $pdf->mon_fichier="note.pdf";
 
 // Création d'une page
 $pdf->AddPage();
 
-// Définit l'alias du nombre de pages {nb}
-$pdf->AliasNbPages();
-
 // Titre de page
-$pdf->SetFont('Arial', '', 24);
+$pdf->SetFont('Arial', 'B', 16);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->Cell(0, 20, utf8_decode('Note de frais'), 0, 1, 'C');
-$pdf->Ln(8);
+$pdf->SetFillColor(208,252,204);
+$pdf->SetX(5);
+$pdf->Cell(50, 10, utf8_decode("Note de frais des bénévoles"), 0, 0, 'L');
+$pdf->SetX(155);
+$pdf->Cell(50, 10, utf8_decode("Année civile ".$periode->get_lib_periode()), 0,1,"C", true);
+$pdf->Ln(2);
 
-$pdf->SetX(10);
-$pdf->Image("",8,2);
-
-// Boucle des lignes
-$pdf->SetFont('Arial', '', 12);
-$pdf->SetTextColor(0, 0, 0); // Noir
-// Entête
-$pdf->SetFont('', 'B');
+$pdf->SetFont('Times', 'B', 14);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetX(12);
+$pdf->Cell(20, 10, utf8_decode("Je soussigné(e)"), 0,1,"C", false);
+// $pdf->Cell(195, 8, utf8_decode($user->get_prenom()." ".$user->get_nom()), 0,1,"C",true);
+$pdf->Ln(5);
+$pdf->Cell(20, 10, utf8_decode("demeurant"), 0,1,"C",false);
+$pdf->Cell(195, 8, utf8_decode($adherent->get_adr1()." ".$adherent->get_adr2()." ".$adherent->get_adr3()), 0,1,"C",true);
+$pdf->SetX(35);
+$pdf->Ln(5);
+$pdf->Cell(500, 10, utf8_decode("certifie renoncer au remboursement des frais ci-dessous et les laisser à l'association"), 0,1,"L",false);
+$pdf->Cell(195, 8, utf8_decode($club->get_lib_club()), 0,1,"C",true);
+$pdf->Cell(195, 8, utf8_decode($club->get_adr1()." ".$club->get_adr2()." ".$club->get_adr3()), 0,1,"C",true);
+$pdf->SetX(15);
+$pdf->Cell(20, 10, utf8_decode("en tant que don."), 0,1,"C",false);
+$pdf->Ln(5);
 $pdf->SetX(20);
-$pdf->SetFillColor(255,255,255);
-$pdf->Cell(30, 5, utf8_decode("Date jj/mm/aaaa"), 1,0,"C",true);
-$pdf->Cell(50, 5, utf8_decode("Motif"), 1,0,"C",true);
-$pdf->Cell(50, 5, utf8_decode("Trajet"), 1,0,"C",true);
-$pdf->Cell(50, 5, utf8_decode("Kms parcourus"), 1,0,"C",true);
-$pdf->Cell(50, 5, utf8_decode("Total frais Kms"), 1,0,"C",true);
-$pdf->Cell(50, 5, utf8_decode("Coût péages"), 1,0,"C",true);
-$pdf->Cell(50, 5, utf8_decode("Coût repas"), 1,0,"C",true);
-$pdf->Cell(50, 5, utf8_decode("Coût hébergement"), 1,0,"C",true);
-$pdf->Cell(50, 5, utf8_decode("Total"), 1,1,"C",true);
+$pdf->Cell(20, 5, utf8_decode("Frais de déplacement"), 0,0,"C",false);
+$pdf->SetX(120);
+$pdf->Cell(20, 5, utf8_decode("Tarif kilométrique appliqué pour le remboursement : ".$periode->get_mt_km()), 0,1,"C",false);
+$pdf->Ln(5);
 
+// Entête
+$pdf->SetFont('Times', '',8);
+$pdf->SetX(5);
+$pdf->Cell(20, 10, utf8_decode("Date jj/mm/aaaa"), 1,0,"C",true);
+$pdf->Cell(35, 10, utf8_decode("Motif"), 1,0,"C",true);
+$pdf->Cell(30, 10, utf8_decode("Trajet"), 1,0,"C",true);
+$pdf->Cell(20, 10, utf8_decode("Kms parcourus"), 1,0,"C",true);
+$pdf->Cell(20, 10, utf8_decode("Total frais Kms"), 1,0,"C",true);
+$pdf->Cell(18, 10, utf8_decode("Coût Péages"), 1,0,"C",true);
+$pdf->Cell(18, 10, utf8_decode("Coût Repas"), 1,0,"C",true);
+$pdf->Cell(18, 10, utf8_decode("Coût Hébergement"), 1,0,"C",true);
+$pdf->Cell(20, 10, utf8_decode("Total"), 1,1,"C",true);
 
+// Contenu
+$fill=false;  // panachage pour la couleur du fond
+$pdf->SetFillColor(224,235,255);  // bleu clair
+$total = 0;
+foreach ($lignes as $ligne) {
+    $pdf->SetX(5);
+    $pdf->Cell(20, 10, utf8_decode($ligne->get_dat_ligne()),1,0,"C");
+    $pdf->Cell(35, 10, utf8_decode($motif->get_lib_motif($ligne->get_id_motif())),1,0,"C");
+    $pdf->Cell(30, 10, utf8_decode($ligne->get_lib_trajet()),1,0,"C");
+    $pdf->Cell(20, 10, utf8_decode($ligne->get_nb_km()),1,0,"C");
+    $pdf->Cell(20, 10, utf8_decode($ligne->get_mt_km()),1,0,"C");
+    $pdf->Cell(18, 10, utf8_decode($ligne->get_mt_peage()),1,0,"C");
+    $pdf->Cell(18, 10, utf8_decode($ligne->get_mt_repas()),1,0,"C");
+    $pdf->Cell(18, 10, utf8_decode($ligne->get_mt_hebergement()),1,0,"C");
+    $pdf->Cell(20, 10, utf8_decode($ligne->get_mt_total().EURO),1, 1,"C", true);
+    $total = $total + $ligne->get_mt_total();
+}
 
-// Note
-  foreach($notes as $note) {
-    $pdf->Cell(0,5,utf8_decode($note->get_id_note(),$note->get_est_valide(),$note->get_mt_total(),$note->get_dat_remise(),$note->get_nr_ordre(),$note->get_id_periode()),1,1,"L");
-    foreach ($note->get_lignes() as $ligne){
-      $pdf->Cell(0,5,utf8_decode($ligne->get_id_ligne(),$ligne->get_dat_ligne(),$ligne->get_lib_trajet(),$ligne->get_nb_km(),$ligne->get_mt_km(),$ligne->get_mt_peage(),$ligne->get_mt_repas(),$ligne->get_mt_hebergement(),$ligne->get_mt_total(),$ligne->get_id_motif()),1,1,"L");
-    }
-  }
+$pdf->SetFont('Times', '', 14);
+$pdf->SetX(5);
+$pdf->Cell(179, 10, utf8_decode("Montant total des frais de déplacements"), 1,0,"C",false);
+$pdf->SetFillColor(204, 255, 255);  // bleu clair
+$pdf->Cell(20, 10, utf8_decode($total.EURO), 1,1,"C",true);
+$pdf->Ln(5);
 
+$pdf->SetFillColor(208,252,204);
+$pdf->SetX(10);
+$pdf->Cell(80, 8, utf8_decode("Je suis licencié sous le n° de licence suivant :"), 0,0,"L");
+$pdf->SetX(125);
+$pdf->Cell(40, 8, utf8_decode("Licence n° ".$adherent->get_nr_licence()), 0,1,"C",true);
+$pdf->Ln(5);
+$pdf->Cell(40, 8, utf8_decode("Montant total des dons :"), 0,0,"L");
+$pdf->SetFillColor(204, 255, 255);  // bleu clair
+$pdf->SetX(100);
+$pdf->Cell(40, 8, utf8_decode($total.EURO), 0,1,"C",true);
+
+$pdf->SetFont('Times', 'I', 10);
+$pdf->SetX(65);
+$pdf->Cell(80, 10, utf8_decode("Pour bénéficier du reçu de dons, cette note de frais doit être accompagnée de tous les justificatifs correspondants."), 0,1,"C");
+$pdf->SetFont('Times', '', 14);
+$pdf->SetFillColor(208,252,204);
+$pdf->SetX(70);
+$pdf->Cell(20, 10, utf8_decode("A"), 0,0,"C");
+$pdf->Cell(50, 10, utf8_decode("Toulouse"), 0,0,"C", true);
+$pdf->Cell(20, 10, utf8_decode("Le"), 0,0,"C");
+$pdf->Cell(50, 10, utf8_decode($date), 0,1,"C", true);
+$pdf->Ln(2);
+$pdf->SetX(90);
+$pdf->Cell(50, 20, utf8_decode("Signature du bénévole :"), 0,0,"C", false);
+// $pdf->Cell(80, 20, utf8_decode($user->get_prenom()." ".$user->get_nom()), 0,1,"C", true);
+$pdf->Ln(25);
+
+$pdf->SetFillColor(255, 156, 204);
+$pdf->Cell(80, 10, utf8_decode("Partie réservée à l'association"), 0,1,"C", true);
+$pdf->Cell(40, 10, utf8_decode("N° d'ordre du reçu : "), 0,0,"L", true);
+$pdf->Cell(40, 10, utf8_decode($periode->get_lib_periode()."-007"), 0,1,"L", true);
+$pdf->Cell(80, 10, utf8_decode("Remis le : "), 0,1,"L", true);
+$pdf->Cell(80, 10, utf8_decode("Signature du trésorier :"), 0,1,"L", true);
 
 // Génération du document PDF
 $pdf->Output('f','outfiles/'.$pdf->mon_fichier);
