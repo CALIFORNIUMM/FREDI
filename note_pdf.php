@@ -45,7 +45,7 @@ $pdf->SetX(5);
 $pdf->Cell(50, 10, utf8_decode("Note de frais des bénévoles"), 0, 0, 'L');
 $pdf->SetX(155);
 $pdf->Cell(50, 10, utf8_decode("Année civile ".$periode->get_lib_periode()), 0,1,"C", true);
-$pdf->Ln(2);
+$pdf->Ln(5);
 
 $pdf->SetFont('Times', 'B', 14);
 $pdf->SetTextColor(0, 0, 0);
@@ -54,23 +54,28 @@ $pdf->Cell(20, 10, utf8_decode("Je soussigné(e)"), 0,1,"C", false);
 // $pdf->Cell(195, 8, utf8_decode($user->get_prenom()." ".$user->get_nom()), 0,1,"C",true);
 $pdf->Ln(5);
 $pdf->Cell(20, 10, utf8_decode("demeurant"), 0,1,"C",false);
+$pdf->SetFont('Times', '', 14);
 $pdf->Cell(195, 8, utf8_decode($adherent->get_adr1()." ".$adherent->get_adr2()." ".$adherent->get_adr3()), 0,1,"C",true);
 $pdf->SetX(35);
 $pdf->Ln(5);
+$pdf->SetFont('Times', 'B', 14);
 $pdf->Cell(500, 10, utf8_decode("certifie renoncer au remboursement des frais ci-dessous et les laisser à l'association"), 0,1,"L",false);
+$pdf->SetFont('Times', '', 14);
 $pdf->Cell(195, 8, utf8_decode($club->get_lib_club()), 0,1,"C",true);
 $pdf->Cell(195, 8, utf8_decode($club->get_adr1()." ".$club->get_adr2()." ".$club->get_adr3()), 0,1,"C",true);
 $pdf->SetX(15);
+$pdf->SetFont('Times', 'B', 14);
 $pdf->Cell(20, 10, utf8_decode("en tant que don."), 0,1,"C",false);
 $pdf->Ln(5);
 $pdf->SetX(20);
 $pdf->Cell(20, 5, utf8_decode("Frais de déplacement"), 0,0,"C",false);
 $pdf->SetX(120);
+$pdf->SetFont('Times', '', 14);
 $pdf->Cell(20, 5, utf8_decode("Tarif kilométrique appliqué pour le remboursement : ".$periode->get_mt_km()), 0,1,"C",false);
 $pdf->Ln(5);
 
 // Entête
-$pdf->SetFont('Times', '',8);
+$pdf->SetFont('Times', '', 8);
 $pdf->SetX(5);
 $pdf->Cell(20, 10, utf8_decode("Date jj/mm/aaaa"), 1,0,"C",true);
 $pdf->Cell(35, 10, utf8_decode("Motif"), 1,0,"C",true);
@@ -109,20 +114,27 @@ $pdf->Ln(5);
 
 $pdf->SetFillColor(208,252,204);
 $pdf->SetX(10);
+$pdf->SetFont('Times', 'B', 14);
 $pdf->Cell(80, 8, utf8_decode("Je suis licencié sous le n° de licence suivant :"), 0,0,"L");
 $pdf->SetX(125);
+$pdf->SetFont('Times', '', 14);
 $pdf->Cell(40, 8, utf8_decode("Licence n° ".$adherent->get_nr_licence()), 0,1,"C",true);
 $pdf->Ln(5);
+$pdf->SetFont('Times', 'B', 14);
 $pdf->Cell(40, 8, utf8_decode("Montant total des dons :"), 0,0,"L");
 $pdf->SetFillColor(204, 255, 255);  // bleu clair
 $pdf->SetX(100);
+$pdf->SetFont('Times', '', 14);
 $pdf->Cell(40, 8, utf8_decode($total.EURO), 0,1,"C",true);
+$pdf->Ln(5);
 
 $pdf->SetFont('Times', 'I', 10);
 $pdf->SetX(65);
 $pdf->Cell(80, 10, utf8_decode("Pour bénéficier du reçu de dons, cette note de frais doit être accompagnée de tous les justificatifs correspondants."), 0,1,"C");
 $pdf->SetFont('Times', '', 14);
 $pdf->SetFillColor(208,252,204);
+$pdf->Ln(5);
+
 $pdf->SetX(70);
 $pdf->Cell(20, 10, utf8_decode("A"), 0,0,"C");
 $pdf->Cell(50, 10, utf8_decode("Toulouse"), 0,0,"C", true);
@@ -135,7 +147,9 @@ $pdf->Cell(50, 20, utf8_decode("Signature du bénévole :"), 0,0,"C", false);
 $pdf->Ln(25);
 
 $pdf->SetFillColor(255, 156, 204);
+$pdf->SetFont('Times', 'B', 14);
 $pdf->Cell(80, 10, utf8_decode("Partie réservée à l'association"), 0,1,"C", true);
+$pdf->SetFont('Times', '', 14);
 $pdf->Cell(40, 10, utf8_decode("N° d'ordre du reçu : "), 0,0,"L", true);
 $pdf->Cell(40, 10, utf8_decode($periode->get_lib_periode()."-007"), 0,1,"L", true);
 $pdf->Cell(80, 10, utf8_decode("Remis le : "), 0,1,"L", true);
