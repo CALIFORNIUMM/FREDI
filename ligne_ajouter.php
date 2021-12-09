@@ -6,12 +6,13 @@
   require_once "init.php";
 
   //Instanciation des DAO
-  $lignes = new LigneDAO();
-  $lignes = $lignes->findAll();
+  $ligneDAO = new LigneDAO();
+
   $motifs = new MotifDAO();
   $motifs = $motifs->findAll();
-  //Récupère l'ID dans l'URL
-  $id_ligne = isset($_GET['id_ligne']) ? $_GET['id_ligne'] : null;
+
+  $noteDAO = new NoteDAO();
+  $note = $noteDAO->findByUser($session->get_id_utilisateur());
 
   // Lecture du formulaire
   $submit = isset($_POST['submit']);
@@ -31,16 +32,14 @@
       'mt_peage'=>$mt_peage,
       'mt_repas'=>$mt_repas,
       'mt_hebergement'=>$mt_hebergement,
-      'id_motif'=>$id_motif
+      'id_motif'=>$id_motif,
+      'id_note'=>$note->get_id_note()
     ));
       // Ajouter l'enregistrement dans la BD
-      $lignes->insert($ligne);
+      $ligneDAO->insert($ligne);
       // Redirection vers la liste des lignes
       header("Location: profil.php");
-  } else {
-  // Formulaire non soumi : lit l'objet métier
-  $ligne = new Ligne();
-}
+  }
 
 ?>
 <h1>User</h1>
