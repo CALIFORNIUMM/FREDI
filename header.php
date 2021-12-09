@@ -22,22 +22,22 @@
             <li class="ligne left"><h1><a href="index.php">Accueil</a></h1></li>
             <li class="ligne center"><h1>FREDI - <?= $title ?></h1></li>
 
-            <?php 
+            <?php
                 if(isset($session)){
                     if($session->get_role() == 2){
                         echo '<li><a href="admin.php">ADMIN</a></li>';
                     }
                     if($session->get_role() == 1){
-                        echo '<li><a href="controleur.php">CONTROLEUR</a></li>';
+                        echo '<li class="ligne right"><a href="controleur.php">CONTROLEUR</a></li>';
                     }
-                    echo '<li><a href="profil.php">MON COMPTE</a></li>';
-                    echo '<li><a href="deconnexion.php">DECONNEXION</a></li>';
+                    echo '<li class="ligne left"><a href="profil.php">MON COMPTE</a></li>';
+                    echo '<li class="ligne right"><a href="deconnexion.php">DECONNEXION</a></li>';
                 }else{
                     echo '<li class="ligne right"><a href="inscription.php">S\'INSCRIRE</a></li>';
                     echo '<li class="ligne right"><a href="connexion.php">SE CONNECTER</a></li>';
                 }
             ?>
-                
+
         </ul>
     </div>
 

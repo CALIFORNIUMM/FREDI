@@ -13,9 +13,8 @@
 - 1.Il faut vous rendre dans **/storage/sql**
 - 2.Puis ajoutez dans l'ordre les fichiers suivants dans la partie SQL
     - `__fredi21_structure_simple.sql`
+    - `__fredi21_data.sql`
     - `__fredi21_trigger.sql`
-    - `__fredi21_data.sql` (Si vous voulez les données d'exemple)
-
 
 # Documentation détaillée du projet dans le dossier
 - **storage/livrables/documentation FREDI.pdf**

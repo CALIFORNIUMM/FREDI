@@ -71,29 +71,41 @@
             return $note;
         } // function findByUser()
 
+        function findAllByUser($id_user) {
+            $sql = "SELECT * FROM note, periode WHERE note.id_periode = periode.id_periode AND periode.est_active = 1 AND note.id_utilisateur = :id_utilisateur";
+            try {
+                $sth = $this->pdo->prepare($sql);
+                $sth->execute(array(":id_utilisateur" => $id_user));
+                $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
+            }
+            $notes = array();
+            $ligneDAO = new LigneDAO();
+            foreach ($rows as $row) {
+                $note = new Note($row);
+                $lignes = $ligneDAO->findAllByIdNote($note->get_id_note());
+                $note->set_lignes($lignes);
+                $notes[]=$note;
+            }
+            // Retourne l'objet métier
+            return $notes;
+        } // function findByUser()
+
         function findPeriode(){
-          $sql = "SELECT * FROM note, periode, utilisateur WHERE periode.id_periode = note.id_periode AND note.id_utilisateur = utilisateur.id_utilisateur AND periode.est_active = 1";
+          $sql = "SELECT utilisateur.id_utilisateur, pseudo, note.id_note 
+          FROM note, periode, utilisateur 
+          WHERE periode.id_periode = note.id_periode 
+          AND note.id_utilisateur = utilisateur.id_utilisateur 
+          AND periode.est_active = 1";
           try {
             $sth = $this->pdo->prepare($sql);
             $sth->execute();
-            $rows = $sth->fetch(PDO::FETCH_ASSOC);
+            $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
           } catch (PDOException $e){
             throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
           }
-          $notes = array();
-          $lignesDAO = new LigneDAO();
-          foreach ($rows as $row) {
-              $lignes = $lignesDAO->findAllByIdNote($row["id_note"]);
-              $row['lignes']=$lignes;
-              $notes[] = new Note($row);
-          $usersDAO = new UserDAO();
-          foreach ($rows as $row) {
-            $users = $usersDAO->find($row["id_utilisateur"]);
-            $row['utilisateur']=$users;
-            $notes[] = new Notes($row);
-          }
-          }
-          return $notes;
+          return $rows;
         }
     }
 ?>

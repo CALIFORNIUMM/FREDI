@@ -30,6 +30,7 @@ $motifdao = New MotifDAO();
             <th>Actions</th>
         </tr>
         <?php
+        
         foreach($note->get_lignes() as $ligne){
             echo '<tr>';
             echo '<td>'.$ligne->get_id_ligne().'</td>';
