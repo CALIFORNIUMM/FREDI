@@ -56,6 +56,23 @@
                 throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
             }
         }
+        
+        function findByIdUtilisateur($id_utilisateur) {
+            $sql = "SELECT * FROM adherent WHERE id_utilisateur= :id_utilisateur";
+            try {
+                $sth = $this->pdo->prepare($sql);
+                $sth->execute(array(":id_utilisateur" => $id_utilisateur));
+                $row = $sth->fetch(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
+            }
+            $adherent=null;
+            if($row) {
+                $adherent = new Adherent($row);
+            }
+            // Retourne l'objet
+            return $adherent;
+        } // function find()
 
     }
 ?>

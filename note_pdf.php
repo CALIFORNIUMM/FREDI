@@ -4,22 +4,31 @@
  */
 require_once "init.php";
 
-$id = isset($_GET['id']) ? $_GET['id'] : null;
+$id_note = isset($_GET['id']) ? $_GET['id'] : null;
+
+//recupere la note
+$noteDAO = new NoteDAO();
+$note = $noteDAO->find($id_note);
+
 //Renvoie l'utilisateur
-$userDAO = new UserDAO;
-$user = $userDAO->find($id);
-$adherentDAO = new AdherentDAO;
-$adherent = $adherentDAO->find($id);
-$clubDAO = new ClubDAO;
+$userDAO = new UserDAO();
+$user = $userDAO->find($note->get_id_utilisateur());
+
+$adherentDAO = new AdherentDAO();
+$adherent = $adherentDAO->findByIdUtilisateur($note->get_id_utilisateur());
+
+$clubDAO = new ClubDAO();
 $club = $clubDAO->find($adherent->get_id_club());
-$ligneDAO = new LigneDAO;
-$periodeDAO = new PeriodeDAO;
+
+$ligneDAO = new LigneDAO();
+
+$periodeDAO = new PeriodeDAO();
 $periode = $periodeDAO->findLibEnCours();
-$lignes = array();
+
 //Renvoie les lignes de la note active
-$lignes = $ligneDAO->findAllByIdNote($id, $periode->get_lib_periode());
-$motifDAO = new MotifDAO;
-$motif = $motifDAO->findAll();
+$lignes = $ligneDAO->findAllByIdNote($id_note, $periode->get_lib_periode());
+
+$motifDAO = new MotifDAO();
 
 // Instanciation de l'objet dérivé
 $pdf = new Mon_pdf();
@@ -51,7 +60,7 @@ $pdf->SetFont('Times', 'B', 14);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetX(12);
 $pdf->Cell(20, 10, utf8_decode("Je soussigné(e)"), 0,1,"C", false);
-// $pdf->Cell(195, 8, utf8_decode($user->get_prenom()." ".$user->get_nom()), 0,1,"C",true);
+$pdf->Cell(195, 8, utf8_decode($user->get_nom()." ".$user->get_prenom()), 0,1,"C",true);
 $pdf->Ln(5);
 $pdf->Cell(20, 10, utf8_decode("demeurant"), 0,1,"C",false);
 $pdf->SetFont('Times', '', 14);
@@ -94,7 +103,7 @@ $total = 0;
 foreach ($lignes as $ligne) {
     $pdf->SetX(5);
     $pdf->Cell(20, 10, utf8_decode($ligne->get_dat_ligne()),1,0,"C");
-    $pdf->Cell(35, 10, utf8_decode($motif->get_lib_motif($ligne->get_id_motif())),1,0,"C");
+    $pdf->Cell(35, 10, utf8_decode($motifDAO->find($ligne->get_id_motif())->get_lib_motif()),1,0,"C");
     $pdf->Cell(30, 10, utf8_decode($ligne->get_lib_trajet()),1,0,"C");
     $pdf->Cell(20, 10, utf8_decode($ligne->get_nb_km()),1,0,"C");
     $pdf->Cell(20, 10, utf8_decode($ligne->get_mt_km()),1,0,"C");
