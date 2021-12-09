@@ -1,34 +1,39 @@
 <?php
 
-require_once "../init.php";
+use \setasign\Fpdi\Fpdi;
 
-$id = isset($_GET['id']) ? $_GET['id'] : null;
-//Renvoie l'utilisateur
-$userDAO = new UserDAO;
-$user = $userDAO->find($id);
-$adherentDAO = new AdherentDAO;
-$adherent = $adherentDAO->find($id);
-$clubDAO = new ClubDAO;
-$club = $clubDAO->find($adherent->get_id_club());
-$ligneDAO = new LigneDAO;
-$periodeDAO = new PeriodeDAO;
-$periode = $periodeDAO->findLibEnCours();
+require_once "init.php";
 
-$motifDAO = new MotifDAO;
-$ligueDAO = new LigueDAO;
-$ligue = $ligueDAO->find($club->get_id_ligue());
+// initiate FPDI
+$pdf = new Mon_fpdi;
 
-//Trouver moyen de convertir chiffres en lettres
+// Créé la constante pour le symbole ascii euro (sinon probleme d'affichage)
+$date = date('d/m/Y');
+define('EURO'," ".utf8_encode(chr(128))); 
 
-$fields = array(
-    //REMPLIR INFOS
-);
+// Metadonnées
+$pdf->SetTitle('Cerfa', true);
+$pdf->SetAuthor('FREDI', true);
+$pdf->SetSubject('Cerfa', true);
+$pdf->mon_fichier="cerfa.pdf";
 
-$pdf = new FPDM('../fpdf/fpdm/src/CERFA_vierge.pdf');
-$pdf->mon_fichier="CERFA.pdf";
-$pdf->useCheckboxParser = true; //gestion des checkbox
-$pdf->Load($fields, true); // second parameter: false if field values are in ISO-8859-1, true if UTF-8
-$pdf->Merge();
-$pdf->Output('F','../outfiles/'.$user->get_nom()."-".$periode->get_lib_periode()."-".$pdf->mon_fichier);
+// add a page
+$pdf->AddPage();
+
+// set the source file
+$pdf->setSourceFile("fpdi/CERFA_vierge.pdf");
+
+// import page 1
+$tplIdx = $pdf->importPage(1);
+
+$pdf->useImportedPage($tplIdx);
+
+// now write some text above the imported page
+$pdf->SetFont('Helvetica');
+$pdf->SetTextColor(255, 0, 0);
+$pdf->SetXY(30, 30);
+$pdf->Write(0, 'This is just a simple text');
+
+$pdf->Output('F','../outfiles/'.$pdf->mon_fichier);
 header('Location: profil.php');
 ?>

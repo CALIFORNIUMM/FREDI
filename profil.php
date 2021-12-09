@@ -83,8 +83,11 @@ echo '<a href="ligne_ajouter.php">Ajouter</a> une ligne';
   }
 
   echo '<p>Note au format [<a href="note_pdf.php?id='.$note->get_id_note().'">PDF</a>]</p>';
-  
 
+  echo '<p>Générer [<a href="cerfa_pdf.php">CERFA</a>]</p>';
+
+  echo '<p>Générer [<a href="cumul_frais_pdf.php?id='.$note->get_id_note().'">Cumul de frais</a>]</p>';
+  
     ?>
 
 <?php include('footer.php'); ?>
