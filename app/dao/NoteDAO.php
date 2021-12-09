@@ -93,10 +93,10 @@
         } // function findByUser()
 
         function findPeriode(){
-          $sql = "SELECT utilisateur.id_utilisateur, pseudo, note.id_note 
-          FROM note, periode, utilisateur 
-          WHERE periode.id_periode = note.id_periode 
-          AND note.id_utilisateur = utilisateur.id_utilisateur 
+          $sql = "SELECT * 
+          FROM note, periode, utilisateur
+          WHERE periode.id_periode = note.id_periode
+          AND note.id_utilisateur = utilisateur.id_utilisateur
           AND periode.est_active = 1";
           try {
             $sth = $this->pdo->prepare($sql);
