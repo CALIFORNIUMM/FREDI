@@ -4,12 +4,17 @@
  */
 require_once "init.php";
 
-$id = isset($_GET['id']) ? $_GET['id'] : null;
-$lib_periode = isset($_GET['lib_periode']) ? $_GET['lib_periode'] : null;
-
 $ligueDAO = new LigueDAO;
-$rows = $ligueDAO->cumulFrais($id_ligue, $annee)
-$ligue = $ligueDAO->find($id_ligue);
+$ligue = $ligueDAO->cumulFraisLigue();
+
+$clubDAO = new ClubDAO;
+$club = $clubDAO->cumulFraisClub();
+
+$motifDAO = new MotifDAO;
+$motif = $motifDAO->cumulFraisMotif();
+
+var_dump($ligue, $motif, $club);
+die();
 
 // Instanciation de l'objet dérivé
 $pdf = new Mon_pdf();
