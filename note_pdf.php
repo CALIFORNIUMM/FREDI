@@ -41,7 +41,7 @@ define('EURO'," ".utf8_encode(chr(128)));
 $pdf->SetTitle('Note', true);
 $pdf->SetAuthor('FREDI', true);
 $pdf->SetSubject('Note', true);
-$pdf->mon_fichier="note.pdf";
+$pdf->mon_fichier="note_".$user->get_nom().".pdf";
 
 // Création d'une page
 $pdf->AddPage();

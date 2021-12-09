@@ -10,8 +10,9 @@ $notes = $notes->findPeriode();
 
 ?>
   <h1>Controleur</h1>
+
   <ul>
-    <li><a href="utilisateur_liste.php">Liste</a> des utilisateurs</li>
+    <li><a href="liste_note_controleur.php">Liste</a> des notes actives</li>
   </ul>
 
   <?php
@@ -22,16 +23,28 @@ $notes = $notes->findPeriode();
         <th>ID Utilisateur</th>
         <th>Pseudo</th>
         <th>ID Note</th>
-        <th>Détail de la note</th>
+        <th>Est valide ?</th>
+        <th>Montant total</th>
+        <th>Date de remise</th>
+        <th>Numero d'ordre</th>
       </tr>
 
       <?php
+
       foreach ($notes as $note) {
         echo '<tr>';
         echo '<td>' . $note['id_utilisateur']. '</td>';
         echo '<td>' . $note['pseudo']. '</td>';
         echo '<td>' . $note['id_note']. '</td>';
-        echo '<td><a href="details_notes.php?id_utilisateur='. $note['id_utilisateur'].'">Détails</a></td>';
+        if ($note['est_valide']==1){
+          echo '<td><p>Oui</p></td>';
+        }
+        else {
+          echo '<td><p>Non</p></td>';
+          }
+        echo '<td>' . $note['mt_total']. '</td>';
+        echo '<td>' . $note['dat_remise']. '</td>';
+        echo '<td>' . $note['nr_ordre']. '</td>';
         echo "</tr>";
       } ?>
     </table>

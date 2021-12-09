@@ -41,7 +41,7 @@
         } // function findAll()
 
         function findLibEnCours() {
-            $sql = "SELECT lib_periode FROM periode WHERE est_active = 1";
+            $sql = "SELECT id_periode, lib_periode FROM periode WHERE est_active = 1";
             try {
                 $sth = $this->pdo->prepare($sql);
                 $sth->execute();

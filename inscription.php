@@ -25,6 +25,8 @@
     $licence=isset($_POST['licence']) ? $_POST['licence'] : NULL;
     //DAO des users
     $users = New UserDAO();
+
+    $note = New NoteDAO();
     //messages
     $messages = New Messages("error");
     $flash = New Flash();
@@ -141,6 +143,7 @@
                 "id_utilisateur" => $lastUser['id_utilisateur'],
                 "id_club" => $club
             );
+            $note->createNote($lastUser['id_utilisateur']);
             $adherent = new Adherent($values);
             $nAdherent = new AdherentDAO();
             $nAdherent = $nAdherent->newAdherent($adherent);

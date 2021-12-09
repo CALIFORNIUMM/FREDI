@@ -93,10 +93,10 @@
         } // function findByUser()
 
         function findPeriode(){
-          $sql = "SELECT utilisateur.id_utilisateur, pseudo, note.id_note 
-          FROM note, periode, utilisateur 
-          WHERE periode.id_periode = note.id_periode 
-          AND note.id_utilisateur = utilisateur.id_utilisateur 
+          $sql = "SELECT * 
+          FROM note, periode, utilisateur
+          WHERE periode.id_periode = note.id_periode
+          AND note.id_utilisateur = utilisateur.id_utilisateur
           AND periode.est_active = 1";
           try {
             $sth = $this->pdo->prepare($sql);
@@ -107,5 +107,23 @@
           }
           return $rows;
         }
+
+        function createNote($id_utilisateur){
+            $id_periode = New PeriodeDAO();
+            $id_periode = $id_periode->findLibEnCours()->get_id_periode();
+            $sql = "INSERT INTO Note(est_valide, id_periode, id_utilisateur) VALUES (:est_valide, :id_periode, :id_utilisateur)";
+            try {
+              $sth = $this->pdo->prepare($sql);
+              $sth->execute(array(
+                  ":est_valide" => 0,
+                  ":id_periode" => $id_periode,
+                  ":id_utilisateur" => $id_utilisateur
+              ));
+              $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
+            } catch (PDOException $e){
+              throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
+            }
+            return $rows;
+          }
     }
 ?>

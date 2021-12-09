@@ -9,6 +9,7 @@ $notes = $dao->findAllByUser($session->get_id_utilisateur());
 $motifdao = New MotifDAO();
 $motifdao=$motifdao->findAll();
 
+
 ?>
   <h1>Bienvenu(e) <?= $session->get_pseudo() ?></h1>
   <h2>Page de mon profil</h2>
