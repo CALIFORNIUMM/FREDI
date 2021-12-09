@@ -1,3 +1,5 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
 <?php
     $title = "Inscription";
     include('header.php'); 
@@ -155,7 +157,11 @@
     if($messages->is_empty() == FALSE){
         $messages->afficher();
     }
+
 ?>
+
+
+
 <form method="POST">
     <label for="pseudo">Pseudo</label><br>
     <input type="text" id="pseudo" name="pseudo" value="<?= $pseudo ?>"><br><br>
@@ -176,9 +182,26 @@
     <input type="text" id="prenom" name="prenom" value="<?= $prenom ?>"><br><br>
 
 
-    
-    <label for="ligue">Ligue</label><br>
-    <select name="ligue" id="ligue">
+    <script language="Javascript">
+				function getclub(val) {
+					$.ajax({
+					type: "POST",
+					url: "get_club.php",
+					data:'id_ligue='+val,
+					success: function(data){
+						$("#club").html(data);
+					}
+					});
+				}
+
+                function selectligue(val) {
+                    $("#search-box").val(val);
+                    $("#suggesstion-box").hide();
+                }
+    </script>
+
+<label for="ligue">Ligue</label><br>
+    <select name="ligue" id="ligue" onChange="getclub(this.value);">
         <option value=""selected>--Please choose an option--</option>
         <?php
             foreach($ligues as $liguee){
@@ -193,6 +216,12 @@
         ?>
     </select><br><br>
 
+<label for="club">Club</label><br>
+            <select name="club" id="club">
+                <option value="">--Please choose an option--</option>
+            </select><br><br>
+ 
+
     <label for="adresse">Adresse</label><br>
     <input type="text" name="adresse" id="adresse" value="<?= $adresse ?>"><br><br>  
 
@@ -202,21 +231,7 @@
     <label for="ville">Ville</label><br>
     <input type="text" name="ville" id="ville" value="<?= $ville ?>"><br><br>
 
-    <label for="club">Club</label><br>
-    <select name="club" id="club">
-        <option value=""selected>--Please choose an option--</option>
-        <?php
-            foreach($clubs as $clube){
-                $selectede = NULL;
-                if($club == $clube->get_id_club()){
-                    $selectede = "selected";
-                }else{
-                    $selectede = NULL;
-                }
-                echo "<option value=\"".$clube->get_id_club()."\" $selected>".$clube->get_lib_club()."</option>";
-            }
-        ?>
-    </select><br><br>
+    
     
     <label for="licence">N°Licence</label><br>
     <input type="text" name="licence" id="licence" value="<?= $licence ?>"><br><br>
