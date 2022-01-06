@@ -56,6 +56,27 @@
             // Retourne un tableau d'objets
             return $club;
         } // function find()
+
+        public function cumulFraisClub()
+        {
+            $sql = "SELECT club.id_club, club.lib_club, SUM(note.mt_total) as total
+            FROM club, adherent, utilisateur, note, periode
+            WHERE club.id_club = adherent.id_club
+            AND utilisateur.id_utilisateur = adherent.id_utilisateur
+            AND note.id_utilisateur = utilisateur.id_utilisateur
+            AND note.id_periode = periode.id_periode
+            AND periode.est_active = 1
+            GROUP BY club.id_club;";
+
+            try {
+                $sth = $this->pdo->prepare($sql);
+                $sth->execute();
+                $rows=$sth->fetchAll(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
+            }
+            return $rows;
+        }
         
     }
 ?>

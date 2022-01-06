@@ -40,25 +40,29 @@
             return $ligue;
         } // function findAll()
 
-        public function cumulFrais($id_ligue, $annee)
+        public function cumulFraisLigue()
         {
-            $sql = "SELECT lib_ligue, lib_club, lib_motif, SUM(mt_total)
-            FROM ligue, club, ligne, motif, periode, note
-            WHERE ligue.id_ligue=club.id_ligue
-            AND ligne.id_motif=motif.id_motif
-            AND ligue.id_ligue=:ligue
-            AND periode.lib_periode=:annee";
+            $sql = "SELECT ligue.id_ligue, ligue.lib_ligue, SUM(note.mt_total) as total
+            FROM ligue, club, adherent, utilisateur, note, periode
+            WHERE ligue.id_ligue = club.id_ligue
+            AND club.id_club = adherent.id_club
+            AND utilisateur.id_utilisateur = adherent.id_utilisateur
+            AND note.id_utilisateur = utilisateur.id_utilisateur
+            AND note.id_periode = periode.id_periode
+            AND periode.est_active = 1
+            GROUP BY ligue.id_ligue;";
+
             try {
                 $sth = $this->pdo->prepare($sql);
-                $sth->execute(array(
-                ":ligue" => $id_ligue,
-                ":annee" => $annee
-            ));
-            $rows=$sth->fetchALL(PDO::FETCH_ASSOC);
+                $sth->execute();
+                $rows=$sth->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
                 throw new Exception("Erreur lors de la requête SQL : " . $e->getMessage());
             }
             return $rows;
         }
+
+        
+
     }
 ?>
