@@ -9,7 +9,6 @@ $notes = $dao->findAllByUser($session->get_id_utilisateur());
 $motifdao = New MotifDAO();
 $motifdao=$motifdao->findAll();
 
-
 ?>
   <h1>Bienvenu(e) <?= $session->get_pseudo() ?></h1>
   <h2>Page de mon profil</h2>
@@ -84,6 +83,8 @@ echo '<a href="ligne_ajouter.php">Ajouter</a> une ligne';
   }
 
   echo '<p>Note au format [<a href="note_pdf.php?id='.$note->get_id_note().'">PDF</a>]</p>';
+
+  echo '<p>Note au format [<a href="note_json.php?mail='.$session->get_mail().'&mdp='.$session->get_mdp().'">JSON</a>]</p>';
 
   echo '<p>Générer [<a href="cerfa_pdf.php">CERFA</a>]</p>';
 

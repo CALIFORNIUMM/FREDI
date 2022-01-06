@@ -1,7 +1,5 @@
 <?php
 
-use \setasign\Fpdi\Fpdi;
-
 require_once "init.php";
 
 // initiate FPDI

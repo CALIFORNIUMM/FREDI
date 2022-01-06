@@ -152,7 +152,7 @@ $pdf->Cell(50, 10, utf8_decode($date), 0,1,"C", true);
 $pdf->Ln(2);
 $pdf->SetX(90);
 $pdf->Cell(50, 20, utf8_decode("Signature du bénévole :"), 0,0,"C", false);
-// $pdf->Cell(80, 20, utf8_decode($user->get_prenom()." ".$user->get_nom()), 0,1,"C", true);
+$pdf->Cell(80, 20, utf8_decode($user->get_prenom()." ".$user->get_nom()), 0,1,"C", true);
 $pdf->Ln(25);
 
 $pdf->SetFillColor(255, 156, 204);
