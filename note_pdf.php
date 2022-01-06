@@ -46,6 +46,9 @@ $pdf->mon_fichier="note_".$user->get_nom().".pdf";
 // Création d'une page
 $pdf->AddPage();
 
+// Définit l'alias du nombre de pages {nb}
+$pdf->AliasNbPages();
+
 // Titre de page
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->SetTextColor(0, 0, 0);
