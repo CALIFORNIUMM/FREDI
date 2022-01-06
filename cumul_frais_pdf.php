@@ -5,16 +5,22 @@
 require_once "init.php";
 
 $ligueDAO = new LigueDAO;
-$ligue = $ligueDAO->cumulFraisLigue();
+$ligues = $ligueDAO->cumulFraisLigue();
 
 $clubDAO = new ClubDAO;
-$club = $clubDAO->cumulFraisClub();
+$clubs = $clubDAO->cumulFraisClub();
 
 $motifDAO = new MotifDAO;
-$motif = $motifDAO->cumulFraisMotif();
+$motifs = $motifDAO->cumulFraisMotif();
 
-var_dump($ligue, $motif, $club);
-die();
+$periodeDAO = new PeriodeDAO;
+$periode = $periodeDAO->findLibEnCours();
+
+
+/* echo '<pre>';
+var_dump($ligues, $clubs, $motifs);
+echo '</pre>';
+die(); */
 
 // Instanciation de l'objet dérivé
 $pdf = new Mon_pdf();
@@ -26,60 +32,103 @@ define('EURO'," ".utf8_encode(chr(128)));
 // Metadonnées
 $pdf->SetTitle('Cumul Frais', true);
 $pdf->SetAuthor('FREDI', true);
-$pdf->SetSubject('Cumul Frais', true);
+$pdf->SetSubject('Cumul des Frais', true);
 $pdf->mon_fichier="cumul_frais.pdf";
 
 // Création d'une page
 $pdf->AddPage();
 
-// Titre de page
+// Définit l'alias du nombre de pages {nb}
+$pdf->AliasNbPages();
+
+// Titre de page ligues
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFillColor(208,252,204);
-$pdf->Cell(200, 10, utf8_decode("Cumul de frais de la ligue de ".$ligue->get_lib_ligue()." pour l'année ".$annee), 0, 1, 'C');
+$pdf->Cell(200, 10, utf8_decode("Cumul de frais des ligues pour l'année ".$periode->get_lib_periode()), 0, 1, 'C');
 $pdf->Ln(5);
 
-// Entête
-$pdf->SetFont('Times', '', 8);
-$pdf->SetX(25);
-$pdf->Cell(50, 10, utf8_decode("Club"), 1,0,"C",true);
-$pdf->Cell(50, 10, utf8_decode("Motif"), 1,0,"C",true);
-$pdf->Cell(50, 10, utf8_decode("Cumul"), 1,1,"C",true);
-
-// Contenu
-$fill=false;  // panachage pour la couleur du fond
-$pdf->SetFillColor(224,235,255);  // bleu clair
-$total = 0;
-$club = '';
-foreach ($rows as $row) { // compte le nombre de ligne par club
-    if (isset($nbLignes[$row['lib_club']])){
-        $nbLignes[$row['lib_club']] = $nbLignes[$row['lib_club']]+1; //si la variable existe, on incrémente
-    }
-    else{
-        $nbLignes[$row['lib_club']] = 1; //sinon on l'initie à 1
-    }
+// Entête ligue
+$pdf->SetFont('Arial', '', 8);
+$pdf->SetX(15);
+$pdf->Cell(50, 10, utf8_decode("ID de la ligue"), 1,0,"C",true);
+$pdf->Cell(80, 10, utf8_decode("Nom de la ligue"), 1,0,"C",true);
+$pdf->Cell(50, 10, utf8_decode("Montant dépensé par la ligue"), 1,1,"C",true);
+// Contenu Ligue
+$fill=false;
+$pdf->SetFillColor(224,235,255);
+foreach ($ligues as $ligue) {
+    $pdf->SetFont('', '', 10);
+    $pdf->SetX(15);
+    $pdf->Cell(50, 10, utf8_decode($ligue['id_ligue']),1,0,"C", $fill);
+    $pdf->Cell(80, 10, utf8_decode($ligue['lib_ligue']),1,0,"C", $fill);
+    $pdf->Cell(50, 10, utf8_decode($ligue['total']),1,1,"C", $fill);
+    $fill=!$fill;
 }
-
-foreach ($rows as $row) {
-    $pdf->SetX(25);
-
-    if ($club != $row['lib_club']) {
-        $pdf->Cell(50, 10*$nbLignes[$row['lib_club']], utf8_decode($row['lib_club']), 1, 0, "C"); //pour la première cellule, la hauteur dépend du nombre de lignes
-        $club = $row['lib_club'];
-    }
-    else {
-        $pdf->SetX(75);
-    }
-    $pdf->Cell(50, 10, utf8_decode($row['lib_motif']),1,0,"C");
-    $pdf->Cell(50, 10, utf8_decode($row['total'].EURO),1,1,"C");
-    $total = $total + $row['total'];
-}
-
-$pdf->Cell(100, 10, utf8_decode("Montant total des frais de déplacements"), 1,0,"C",false);
-$pdf->SetFillColor(204, 255, 255);  // bleu clair
-$pdf->Cell(50, 10, utf8_decode($total.EURO), 1,1,"C",true);
+$pdf->Ln(5);
+// Titre de page clubs
+$pdf->SetFont('Arial', 'B', 16);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFillColor(208,252,204);
+$pdf->Cell(200, 10, utf8_decode("Cumul de frais des clubs pour l'année ".$periode->get_lib_periode()), 0, 1, 'C');
 $pdf->Ln(5);
 
+// Entête clubs
+$pdf->SetFont('Arial', '', 8);
+$pdf->SetX(15);
+$pdf->Cell(50, 10, utf8_decode("ID du club"), 1,0,"C",true);
+$pdf->Cell(80, 10, utf8_decode("Nom du club"), 1,0,"C",true);
+$pdf->Cell(50, 10, utf8_decode("Montant dépensé par le club"), 1,1,"C",true);
+// Contenu clubs
+$fill=false;
+$pdf->SetFillColor(224,235,255);
+foreach ($clubs as $club) {
+    $pdf->SetFont('', '', 10);
+    $pdf->SetX(15);
+    $pdf->Cell(50, 10, utf8_decode($club['id_club']),1,0,"C", $fill);
+    $pdf->Cell(80, 10, utf8_decode($club['lib_club']),1,0,"C", $fill);
+    $pdf->Cell(50, 10, utf8_decode($club['total']),1,1,"C", $fill);
+    $fill=!$fill;
+}
+$pdf->Ln(5);
+// Titre de page motifs
+$pdf->SetFont('Arial', 'B', 16);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFillColor(208,252,204);
+$pdf->Cell(200, 10, utf8_decode("Cumul de frais par motif pour l'année ".$periode->get_lib_periode()), 0, 1, 'C');
+$pdf->Ln(5);
+
+// Entête motifs
+$pdf->SetFont('Arial', '', 8);
+$pdf->SetX(15);
+$pdf->Cell(50, 10, utf8_decode("ID du motif"), 1,0,"C",true);
+$pdf->Cell(80, 10, utf8_decode("Nom du motif"), 1,0,"C",true);
+$pdf->Cell(50, 10, utf8_decode("Montant dépensé"), 1,1,"C",true);
+// Contenu motifs
+$fill=false;
+$pdf->SetFillColor(224,235,255);
+foreach ($motifs as $motif) {
+    $pdf->SetFont('', '', 10);
+    $pdf->SetX(15);
+    $pdf->Cell(50, 10, utf8_decode($motif['id_motif']),1,0,"C", $fill);
+    $pdf->Cell(80, 10, utf8_decode($motif['lib_motif']),1,0,"C", $fill);
+    $pdf->Cell(50, 10, utf8_decode($motif['total']),1,1,"C", $fill);
+    $fill=!$fill;
+}
+$pdf->Ln(5);
+
+// Titre de page montant total
+$pdf->SetFont('Arial', 'B', 16);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFillColor(208,252,204);
+$pdf->Cell(200, 10, utf8_decode("Montant total des frais pour l'année ".$periode->get_lib_periode()), 0, 1, 'C');
+$pdf->Ln(5);
+// Entête total
+$pdf->SetFont('Arial', '', 8);
+$pdf->SetX(15);
+$pdf->Cell(50, 10, utf8_decode("Montant dépensé"), 1,1,"C",true);
+//contenu
 // Génération du document PDF
 $pdf->Output('f','outfiles/'.$pdf->mon_fichier);
 header('Location: profil.php');
+?>
