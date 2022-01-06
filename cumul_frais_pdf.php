@@ -125,9 +125,17 @@ $pdf->Cell(200, 10, utf8_decode("Montant total des frais pour l'année ".$period
 $pdf->Ln(5);
 // Entête total
 $pdf->SetFont('Arial', '', 8);
-$pdf->SetX(15);
+$pdf->SetX(80);
 $pdf->Cell(50, 10, utf8_decode("Montant dépensé"), 1,1,"C",true);
 //contenu
+$pdf->SetFillColor(224,235,255);
+$pdf->SetFont('', '', 10);
+$pdf->SetX(80);
+$total=0;
+foreach($motifs as $motif){
+    $total+=$motif['total'];
+}
+$pdf->Cell(50, 10, utf8_decode($total),1,1,"C", $fill);
 // Génération du document PDF
 $pdf->Output('f','outfiles/'.$pdf->mon_fichier);
 header('Location: profil.php');
