@@ -2,7 +2,7 @@
 
 require_once "init.php";
 
-//Renvoie l'utilisateur
+//Renvoie l'utilisateurs
 $userDAO = new UserDAO();
 $user = $userDAO->find($_GET['id']);
 
