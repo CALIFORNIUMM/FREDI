@@ -34,6 +34,9 @@ $pdf->mon_fichier="cerfa_".$user->get_nom().".pdf";
 // add a page
 $pdf->AddPage();
 
+// Définit l'alias du nombre de pages {nb}
+$pdf->AliasNbPages();
+
 $pdf->Image('img\CERFA_vierge.png', 0, 0, 210, 300);
 $pdf->setY(18);
 $pdf->setX(165);
@@ -52,8 +55,8 @@ $pdf->Cell(25, 3, utf8_decode($club->get_lib_club()), 0, "C", true);
 
 //Adresse
 $pdf->setY(46);
-$pdf->setX(65);
-$pdf->Cell(16, 3, utf8_decode($club->get_adr1()),  0, "C", true);
+$pdf->setX(75);
+$pdf->Cell(16, 3, utf8_decode($club->get_adr1()),  0, "L", true);
 //Code postal
 $pdf->setY(52);
 $pdf->setX(30);
@@ -78,19 +81,19 @@ $pdf->setX(60);
 $pdf->Cell(4, 3, utf8_decode($user->get_prenom()." ".$user->get_nom()),  0, "C", true);
 
 //Adresse
-$pdf->setY(188);
-$pdf->setX(65);
+$pdf->setY(187);
+$pdf->setX(80);
 $pdf->Cell(4, 3, utf8_decode($adherent->get_adr1()." ".$adherent->get_adr2()." ".$adherent->get_adr3()),  0, "C", true);
 
 //Code Postal
-$pdf->setY(194);
+$pdf->setY(192);
 $pdf->setX(35);
 $pdf->Cell(4, 3, utf8_decode($adherent->get_adr2()),  0, "C", true);
 
 //Commune
-$pdf->setY(194);
+$pdf->setY(192);
 $pdf->setX(80);
-$pdf->Cell(4, 3, utf8_decode($adherent->get_adr3()),  0, "C", true);
+$pdf->Cell(4, 3, utf8_decode($adherent->get_adr3()),  0, "L", true);
 
 //Somme
 $pdf->setY(202);

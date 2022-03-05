@@ -147,13 +147,13 @@ $pdf->SetFont('Times', '', 14);
 $pdf->SetFillColor(208,252,204);
 $pdf->Ln(5);
 
-$pdf->SetX(70);
+$pdf->SetX(60);
 $pdf->Cell(20, 10, utf8_decode("A"), 0,0,"C");
 $pdf->Cell(50, 10, utf8_decode("Toulouse"), 0,0,"C", true);
 $pdf->Cell(20, 10, utf8_decode("Le"), 0,0,"C");
 $pdf->Cell(50, 10, utf8_decode($date), 0,1,"C", true);
 $pdf->Ln(2);
-$pdf->SetX(90);
+$pdf->SetX(70);
 $pdf->Cell(50, 20, utf8_decode("Signature du bénévole :"), 0,0,"C", false);
 $pdf->Cell(80, 20, utf8_decode($user->get_prenom()." ".$user->get_nom()), 0,1,"C", true);
 $pdf->Ln(25);
@@ -163,8 +163,9 @@ $pdf->SetFont('Times', 'B', 14);
 $pdf->Cell(80, 10, utf8_decode("Partie réservée à l'association"), 0,1,"C", true);
 $pdf->SetFont('Times', '', 14);
 $pdf->Cell(40, 10, utf8_decode("N° d'ordre du reçu : "), 0,0,"L", true);
-$pdf->Cell(40, 10, utf8_decode($periode->get_lib_periode()."-007"), 0,1,"L", true);
-$pdf->Cell(80, 10, utf8_decode("Remis le : "), 0,1,"L", true);
+$pdf->Cell(40, 10, utf8_decode($note->get_nr_ordre()), 0,1,"L", true);
+$pdf->Cell(40, 10, utf8_decode("Remis le : "), 0,0,"L", true);
+$pdf->Cell(40, 10, utf8_decode($note->get_dat_remise()), 0,1,"L", true);
 $pdf->Cell(80, 10, utf8_decode("Signature du trésorier :"), 0,1,"L", true);
 
 // Génération du document PDF
