@@ -43,8 +43,11 @@
         $note = $noteDAO->findByUser($utilisateur->get_id_utilisateur());
         $motifDAO = new motifDAO();
 
+        $periodeDAO = new PeriodeDAO();
+        $periode = $periodeDAO->findLibEnCours();
 
-        $date=array();
+
+        $data=array();
         $user_info=array(
             "id" => $utilisateur->get_id_utilisateur(),
             "pseudo" => $utilisateur->get_pseudo() ,
@@ -55,6 +58,14 @@
         );
         $data[]=array("user_info" => $user_info);
         
+        $periode_info=array(
+            "id_periode" => $periode->get_id_periode(),
+            "lib_periode" => $periode->get_lib_periode(),
+            "est_active" => $periode->get_est_active(),
+            "mt_km" => $periode->get_mt_km(),
+        );
+        $data[]=array("periode_info" => $periode_info);
+
         $lignes_info=array();
         
         foreach($note->get_lignes() as $ligne){
