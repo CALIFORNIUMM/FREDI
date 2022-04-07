@@ -64,7 +64,7 @@ CREATE TABLE `ligne` (
   `id_ligne` int(11) NOT NULL,
   `dat_ligne` date DEFAULT NULL,
   `lib_trajet` varchar(50) DEFAULT NULL,
-  `nb_km` int(11) DEFAULT NULL,
+  `nb_km` decimal(15,2) DEFAULT NULL,
   `mt_km` decimal(15,2) DEFAULT NULL,
   `mt_peage` decimal(15,2) DEFAULT NULL,
   `mt_repas` decimal(15,2) DEFAULT NULL,

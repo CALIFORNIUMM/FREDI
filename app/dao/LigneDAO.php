@@ -147,7 +147,7 @@
         * @throws Exception
         */
         function findAllByIdUser($id_user, $id_periode) {
-            $sql = "SELECT * FROM ligne, note
+            $sql = "SELECT ligne.* FROM ligne, note
             WHERE ligne.id_note = note.id_note 
             AND note.id_utilisateur = :id_utilisateur
             AND note.id_periode = :id_periode";
