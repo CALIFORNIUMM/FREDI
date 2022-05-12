@@ -63,7 +63,7 @@
         $id_utilisateur=array(
             "id_utilisateur" => $utilisateur->get_id_utilisateur()
         );
-        $result['id_utilisateur'] = $id_utilisateur;
+        $result['id_utilisateur'] = array($id_utilisateur);
         
         $result['id_note'] = $note->get_id_note();
 
