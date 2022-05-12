@@ -12,6 +12,8 @@
     $user = isset($_GET['user']) ? $_GET['user'] : NULL;
     $password = isset($_GET['password']) ? $_GET['password'] : NULL;
     $message=[];
+    //création du json 
+    $result = array('status' => 0, 'msg' => _('Une erreur est survenue.'));
 
     //DAO user
     $userDAO = new UserDAO();
@@ -38,6 +40,7 @@
     }
 
     if(empty($message)){
+        $result = array('status' => 0, 'msg' => _('session'));
         $utilisateur = $userDAO->find($utilisateur['id_utilisateur']);
         $noteDAO = new noteDAO();
         $note = $noteDAO->findByUser($utilisateur->get_id_utilisateur());
@@ -46,26 +49,33 @@
         $periodeDAO = new PeriodeDAO();
         $periode = $periodeDAO->findLibEnCours();
 
-
-        $data=array();
         $user_info=array(
-            "id" => $utilisateur->get_id_utilisateur(),
+            "id_utilisateur" => $utilisateur->get_id_utilisateur(),
             "pseudo" => $utilisateur->get_pseudo() ,
+            "mdp" => $utilisateur->get_mdp() ,
             "mail" => $utilisateur->get_mail() ,
             "nom" => $utilisateur->get_nom() ,
             "prenom" => $utilisateur->get_prenom() ,
             "role" => $utilisateur->get_role()
         );
-        $data[]=array("user_info" => $user_info);
+        $result['user'] = $user_info;
         
+        $id_utilisateur=array(
+            "id_utilisateur" => $utilisateur->get_id_utilisateur()
+        );
+        $result['id_utilisateur'] = $id_utilisateur;
+        
+        $result['id_note'] = $note->get_id_note();
+
         $periode_info=array(
             "id_periode" => $periode->get_id_periode(),
-            "lib_periode" => $periode->get_lib_periode(),
-            "est_active" => $periode->get_est_active(),
-            "mt_km" => $periode->get_mt_km(),
+            "lib_periode" => $periode->get_lib_periode() ,
+            "est_active" => $periode->get_est_active() ,
+            "mt_km" => $periode->get_mt_km()
         );
-        $data[]=array("periode_info" => $periode_info);
 
+        $result['periode'] = $periode_info;
+        
         $lignes_info=array();
         
         foreach($note->get_lignes() as $ligne){
@@ -79,26 +89,20 @@
                 "mt_repas" => $ligne->get_mt_repas(),
                 "mt_hebergement" => $ligne->get_mt_hebergement(),
                 "mt_total" => $ligne->get_mt_total(),
-                "lib_motif" => $motifDAO->find($ligne->get_id_motif())->get_lib_motif(),
-                "id_note" => $ligne->get_id_note(),
+                "id_motif" => $ligne->get_id_ligne(),
+                "id_note" => $note->get_id_note(),
+                "id_periode" => $periode->get_id_periode(),
+                "lib_periode" => $periode->get_lib_periode(),
+                "est_active" => $periode->get_est_active(),
+                "lib_motif" => utf8_encode($motifDAO->find($ligne->get_id_motif())->get_lib_motif()),
+                
             );
         }
-        $note_info=array(
-            "id" => $note->get_id_note() ,
-            "est_valide" => $note->get_est_valide() ,
-            "mt_total" => $note->get_mt_total() ,
-            "dat_remise" => $note->get_dat_remise() ,
-            "nr_ordre" => $note->get_nr_ordre() ,
-            "id_periode" => $note->get_id_periode() ,
-            "id_utilisateur" => $note->get_id_utilisateur() ,
-            "lignes" => $lignes_info,
-        );
-        
-        $data[]=array("note_info" => $note_info);
+        $result['ligne'] = $lignes_info;
 
-        echo envoi_json(array("succes" => $data));
+        echo envoi_json($result);
     }else{
-        echo envoi_json(array("error" => $message));
+        echo envoi_json($result);
     }
 
 ?>
