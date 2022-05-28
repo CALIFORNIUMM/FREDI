@@ -21,7 +21,7 @@ if ($submit) {
     //message flash
     $flash->set_type('succes')->add_messages('Vous avez bien supprimé la ligne de frais n°'.$id_ligne)->put();
     // Redirection vers la liste des pays
-    header('Location: profil.php');
+    header('Location: adherent.php');
 } else {
     // Formulaire non soumi : lit l'objet métier
     $ligne = $ligneDAO->find($id_ligne);

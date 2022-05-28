@@ -42,7 +42,7 @@
                 }
                 else {
                     $flash->set_type('succes')->add_messages('Vous vous êtes bien connecté : '.$_SESSION['user']->get_pseudo().'')->put();
-                    header('Location: profil.php');
+                    header('Location: adherent.php');
                 }
             }
             else{

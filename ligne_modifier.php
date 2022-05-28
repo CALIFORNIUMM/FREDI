@@ -36,7 +36,7 @@
       // Modifie l'enregistrement dans la BD
       $ligneDAO->update($ligne);
       // Redirection vers la liste des lignes
-      header("Location: profil.php");
+      header("Location: adherent.php");
 } else {
   // Formulaire non soumi : lit l'objet métier
   $ligne = $ligneDAO->find($id_ligne);

@@ -170,4 +170,4 @@ $pdf->Cell(80, 10, utf8_decode("Signature du trésorier :"), 0,1,"L", true);
 
 // Génération du document PDF
 $pdf->Output('f','outfiles/'.$pdf->mon_fichier);
-header('Location: profil.php');
+header('Location: adherent.php');

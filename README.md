@@ -11,25 +11,23 @@
 
 # Pour la mise en place du serveur SQL :
 - 1.Il faut vous rendre dans **/storage/sql**
-- 2.Puis ajoutez dans l'ordre les fichiers suivants dans la partie SQL
-    - `__fredi21_structure_simple.sql`
-    - `__fredi21_data.sql`
-    - `__fredi21_trigger.sql`
+- 2.Puis ajoutez dans le fichier suivant dans la partie SQL
+    - `fredi21.sql`
 
 # Documentation détaillée du projet dans le dossier
 - **storage/livrables/documentation FREDI.pdf**
 
-# Les IDENTIFIANTS de certains utilisateurs :
+# Les IDENTIFIANTS des utilisateurs :
 ```
+-- Admin
 user : yohan
 mdp : Yohan31000-/
 
-user : agustin
-mdp : Agustin31000-/
-
+-- Contrôleur
 user : david
 mdp : David31000-/
 
+-- Adhérent
 user : ph
 mdp : Honore31000-/
 ```

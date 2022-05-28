@@ -138,5 +138,5 @@ foreach($motifs as $motif){
 $pdf->Cell(50, 10, utf8_decode($total),1,1,"C", $fill);
 // Génération du document PDF
 $pdf->Output('f','outfiles/'.$pdf->mon_fichier);
-header('Location: profil.php');
+header('Location: adherent.php');
 ?>

@@ -38,7 +38,7 @@
       // Ajouter l'enregistrement dans la BD
       $ligneDAO->insert($ligne);
       // Redirection vers la liste des lignes
-      header("Location: profil.php");
+      header("Location: adherent.php");
   }
 
 ?>

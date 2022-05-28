@@ -134,5 +134,5 @@ $pdf->Cell(4, 3, 'X',  0, "C", true);
 
 
 $pdf->Output('f','outfiles/'.$pdf->mon_fichier);
-header('Location: profil.php');
+header('Location: adherent.php');
 ?>

@@ -1,5 +1,5 @@
 <?php
-$title = "Profil";
+$title = "Adherent";
 include('header.php');
 
 $lignes=array();
@@ -11,7 +11,7 @@ $motifdao=$motifdao->findAll();
 
 ?>
   <h1>Bienvenu(e) <?= $session->get_pseudo() ?></h1>
-  <h2>Page de mon profil</h2>
+  <h2>Page adhérent</h2>
   <p>Mon rôle : <?php if($session->get_role() == 0){
       echo "Utilisateur";
   }else ?></p>

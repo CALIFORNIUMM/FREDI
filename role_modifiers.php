@@ -2,7 +2,6 @@
     $title = "Admin Edit rôle";
     include('header.php');
     
-
     //Charger un utilisateur
     $id_utilisateur = isset($_GET['id']) ? $_GET['id'] : NULL;
     $role = isset($_POST['role']) ? $_POST['role'] : NULL;
@@ -30,7 +29,6 @@
             header('Location: utilisateur_liste.php');
         }
     }
-
 
 ?>
     <h1>Admin</h1>
