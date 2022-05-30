@@ -65,7 +65,7 @@
         );
         $result['id_utilisateur'] = array($id_utilisateur);
         
-        $result['id_note'] = $note->get_id_note();
+        //$result['id_note'] = $note->get_id_note();
 
         $periode_info=array(
             "id_periode" => $periode->get_id_periode(),
@@ -89,7 +89,7 @@
                 "mt_repas" => $ligne->get_mt_repas(),
                 "mt_hebergement" => $ligne->get_mt_hebergement(),
                 "mt_total" => $ligne->get_mt_total(),
-                "id_motif" => $ligne->get_id_ligne(),
+                "id_motif" => $ligne->get_id_motif(),
                 "id_note" => $note->get_id_note(),
                 "id_periode" => $periode->get_id_periode(),
                 "lib_periode" => $periode->get_lib_periode(),
