@@ -80,7 +80,7 @@
         
         foreach($note->get_lignes() as $ligne){
             $lignes_info[]=array(
-                "id" => $ligne->get_id_ligne(),
+                "id_ligne" => $ligne->get_id_ligne(),
                 "dat_ligne" => $ligne->get_dat_ligne() ,
                 "lib_trajet" => $ligne->get_lib_trajet() ,
                 "nb_km" => $ligne->get_nb_km(),
