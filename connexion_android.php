@@ -89,18 +89,18 @@
                 "mt_repas" => $ligne->get_mt_repas(),
                 "mt_hebergement" => $ligne->get_mt_hebergement(),
                 "mt_total" => $ligne->get_mt_total(),
-                "id_motif" => $ligne->get_id_motif(),
+                "id_motif" => $ligne->get_id_ligne(),
                 "id_note" => $note->get_id_note(),
                 "id_periode" => $periode->get_id_periode(),
                 "lib_periode" => $periode->get_lib_periode(),
                 "est_active" => $periode->get_est_active(),
-                "lib_motif" => utf8_encode($motifDAO->find($ligne->get_id_motif())->get_lib_motif()),
+                "lib_motif" => $motifDAO->find($ligne->get_id_motif())->get_lib_motif(),
                 
             );
         }
         $result['ligne'] = $lignes_info;
-
-        echo envoi_json($result);
+        echo json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        // echo envoi_json($result);
     }else{
         echo envoi_json($result);
     }
